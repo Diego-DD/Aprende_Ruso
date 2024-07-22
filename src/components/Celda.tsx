@@ -9,7 +9,7 @@ function Celda({ texto = "Celda", className }: CeldaProps) {
   return (
     <div
       className={clsx(
-        "w-full h-full content-center text-center text-base font-Bookerly bg-yellow-600 border-solid border-x border-y border-t-white border-b-white border-r-white border-l-white",
+        "w-full h-full content-center text-center text-base font-Bookerly bg-white border-solid border-x border-y border-t-black border-b-black border-r-black border-l-black",
         className
       )}
     >
