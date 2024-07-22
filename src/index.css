@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Regular";
+  src: url("Bookerly"), url("fonts/Bookerly.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Italic";
+  src: url("Bookerly Italic"),
+    url("fonts/Bookerly Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bold";
+  src: url("Bookerly Bold"), url("fonts/Bookerly Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BoldItalic";
+  src: url("Bookerly Bold Italic"),
+    url("fonts/Bookerly Bold Italic.ttf") format("truetype");
+}
