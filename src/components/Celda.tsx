@@ -1,15 +1,15 @@
-import clsx from "clsx";
+import { cn } from "../lib/utils";
 
 interface CeldaProps {
   texto?: string;
   className?: string;
 }
 //Responsive text-base smtext-lg mdtext-xl lgtext-2xl xltext-3xl
-function Celda({ texto = "Celda", className }: CeldaProps) {
+function Celda({ texto = "", className }: CeldaProps) {
   return (
     <div
-      className={clsx(
-        "w-full h-full content-center text-center text-base font-Bookerly bg-white border-solid border-x border-y border-t-black border-b-black border-r-black border-l-black",
+      className={cn(
+        "w-full h-full content-center text-center text-xs font-Bookerly bg-white border-solid border-x border-y border-t-white border-b-white border-r-white border-l-white",
         className
       )}
     >
