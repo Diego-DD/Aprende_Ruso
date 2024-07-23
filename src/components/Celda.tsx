@@ -3,9 +3,10 @@ import { cn } from "../lib/utils";
 interface CeldaProps {
   texto?: string;
   className?: string;
+  texto_2?: string;
 }
 //Responsive text-base smtext-lg mdtext-xl lgtext-2xl xltext-3xl
-function Celda({ texto = "", className }: CeldaProps) {
+function Celda({ texto = "", className, texto_2 = "" }: CeldaProps) {
   return (
     <div
       className={cn(
@@ -13,8 +14,8 @@ function Celda({ texto = "", className }: CeldaProps) {
         className
       )}
     >
-      <p className="px-1"></p>
-      {texto}
+      <p className="px-1">{texto}</p>
+      {texto_2 != "" && <p className="px-1 text-xs">{texto_2}</p>}
     </div>
   );
 }

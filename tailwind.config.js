@@ -11,73 +11,221 @@ export default {
       },
       colors: {
         singular: {
-          primary: "#BF8F00",
-          secondary: "#FFD765",
+          primario: {
+            claro: "#FFC84D",
+            base: "#BF8F00",
+            oscuro: "#806000",
+          },
+          secundario: {
+            claro: "#FFE599",
+            base: "#FFD765",
+            oscuro: "#CCAB52",
+          },
         },
         plural: {
-          primary: "#FFFF00",
-          secondary: "#FFFF9B",
+          primario: {
+            claro: "#FFFF99",
+            base: "#FFFF00",
+            oscuro: "#CCCC00",
+          },
+          secundario: {
+            claro: "#FFFFCC",
+            base: "#FFFF9B",
+            oscuro: "#E3E3A6",
+          },
         },
         masculino: {
-          primary: "#00B0F0",
-          secondary: "#B7ECFF",
+          primario: {
+            claro: "#66CCFF",
+            base: "#00B0F0",
+            oscuro: "#0073A8",
+          },
+          secundario: {
+            claro: "#E3F8FF",
+            base: "#B7ECFF",
+            oscuro: "#8AD0E3",
+          },
         },
         femenino: {
-          primary: "#FF66CC",
-          secondary: "#FFBDE9",
+          primario: {
+            claro: "#FF99DD",
+            base: "#FF66CC",
+            oscuro: "#CC3399",
+          },
+          secundario: {
+            claro: "#FFE5F0",
+            base: "#FFBDE9",
+            oscuro: "#F99BCF",
+          },
         },
         neutro: {
-          primary: "#00FF00",
-          secondary: "#9BFF9B",
+          primario: {
+            claro: "#66FF66",
+            base: "#00FF00",
+            oscuro: "#00CC00",
+          },
+          secundario: {
+            claro: "#C4FFC4",
+            base: "#9BFF9B",
+            oscuro: "#A0E09F",
+          },
         },
         nominativo: {
-          primary: "#1F3864",
-          secondary: "#B4C6E7",
-          tertiary: "#D9E2F3",
+          primario: {
+            claro: "#4A6A8A",
+            base: "#1F3864",
+            oscuro: "#001A33",
+          },
+          secundario: {
+            claro: "#D0D9F1",
+            base: "#B4C6E7",
+            oscuro: "#8A9AC2",
+          },
+          terciario: {
+            claro: "#E7EAF9",
+            base: "#D9E2F3",
+            oscuro: "#B0BFD9",
+          },
         },
         genitivo: {
-          primary: "#FF3399",
-          secondary: "#FFBDDE",
+          primario: {
+            claro: "#FF66B2",
+            base: "#FF3399",
+            oscuro: "#CC0066",
+          },
+          secundario: {
+            claro: "#FFE3EB",
+            base: "#FFBDDE",
+            oscuro: "#FF8FB3",
+          },
         },
         dativo: {
-          primary: "#FF6600",
-          secondary: "#FFCFAF",
+          primario: {
+            claro: "#FF9933",
+            base: "#FF6600",
+            oscuro: "#CC5200",
+          },
+          secundario: {
+            claro: "#FFE5D4",
+            base: "#FFCFAF",
+            oscuro: "#FFB29F",
+          },
         },
         acusativo: {
-          primary: "#7030A0",
-          secondary: "#9954CC",
-          tertiary: "#D5B8EA",
+          primario: {
+            claro: "#9A66CC",
+            base: "#7030A0",
+            oscuro: "#4C0072",
+          },
+          secundario: {
+            claro: "#B89BFF",
+            base: "#9954CC",
+            oscuro: "#6D2A99",
+          },
+          terciario: {
+            claro: "#E4D9F4",
+            base: "#D5B8EA",
+            oscuro: "#A87EC6",
+          },
         },
         instrumental: {
-          primary: "#FFC000",
-          secondary: "#FFEAA7",
+          primario: {
+            claro: "#FFE066",
+            base: "#FFC000",
+            oscuro: "#FF9900",
+          },
+          secundario: {
+            claro: "#FFF3D0",
+            base: "#FFEAA7",
+            oscuro: "#FFD18F",
+          },
         },
         preposicional: {
-          primary: "#00B050",
-          secondary: "#7DFFB8",
+          primario: {
+            claro: "#33D078",
+            base: "#00B050",
+            oscuro: "#00843F",
+          },
+          secundario: {
+            claro: "#A3FFD5",
+            base: "#7DFFB8",
+            oscuro: "#4ACF8F",
+          },
         },
         verbos: {
-          primary: "#C00000",
-          secondary: "#FF8181",
+          primario: {
+            claro: "#FF6666",
+            base: "#C00000",
+            oscuro: "#800000",
+          },
+          secundario: {
+            claro: "#FFB3B3",
+            base: "#FF8181",
+            oscuro: "#CC6666",
+          },
         },
         celeste: {
-          encabezado: "#5B9BD5",
-          pregunta: "#00B0F0",
+          encabezado: {
+            claro: "#8AB7E2",
+            base: "#5B9BD5",
+            oscuro: "#2A5B9A",
+          },
+          pregunta: {
+            claro: "#66C2F2",
+            base: "#00B0F0",
+            oscuro: "#0083C0",
+          },
         },
         imperfectivo: {
-          primary: "#9900FF",
-          secondary: "#C46DFF",
+          primario: {
+            claro: "#CC66FF",
+            base: "#9900FF",
+            oscuro: "#6600CC",
+          },
+          secundario: {
+            claro: "#D3A3FF",
+            base: "#C46DFF",
+            oscuro: "#9B3CFF",
+          },
         },
         perfectivo: {
-          primary: "#70309F",
-          secondary: "#9F5FCF",
-          tertiary: "#9966FF",
+          primario: {
+            claro: "#8D4BB3",
+            base: "#70309F",
+            oscuro: "#4B0074",
+          },
+          secundario: {
+            claro: "#B67FE2",
+            base: "#9F5FCF",
+            oscuro: "#7C2F9F",
+          },
+          terciario: {
+            claro: "#B3A3FF",
+            base: "#9966FF",
+            oscuro: "#6640CC",
+          },
         },
         frases: {
-          primary: "#339933",
-          secondary: "#B0FF2F",
-          tertiary: "#E4FFB7",
-          cuaternario: "#F2FFDD",
+          primario: {
+            claro: "#66CC66",
+            base: "#339933",
+            oscuro: "#006622",
+          },
+          secundario: {
+            claro: "#D0FF6F",
+            base: "#B0FF2F",
+            oscuro: "#8DCC1F",
+          },
+          terciario: {
+            claro: "#F0FFCF",
+            base: "#E4FFB7",
+            oscuro: "#C6E89F",
+          },
+          cuaternario: {
+            claro: "#F7FFE8",
+            base: "#F2FFDD",
+            oscuro: "#D9F7B9",
+          },
         },
       },
     },

@@ -2,30 +2,28 @@ import Celda from "./Celda";
 
 interface Tabla_DeclinacionesProps {
   tipo?: number;
-  datos?: string[];
 }
 
 function Tabla_Declinaciones({ tipo = 0 }: Tabla_DeclinacionesProps) {
   const titulo = "font-BookerlyBold text-lg text-white";
-  const caso_genero = `row-span-2 bg-verbos-primary ${titulo}`;
-  const singular = `col-span-3 bg-singular-primary ${titulo}`;
-  const masculino = `bg-masculino-primary ${titulo}`;
-  const femenino = `bg-femenino-primary ${titulo}`;
-  const neutro = `bg-neutro-primary ${titulo}`;
-  const plural_1 = `border-b-plural-primary content-end bg-plural-primary ${titulo}`;
-  const plural_2 = `border-t-plural-primary content-start text-xs bg-plural-primary font-BookerlyBold text-xs text-white`;
-  const nominativo = `bg-nominativo-primary ${titulo}`;
-  const genitivo = `bg-genitivo-primary ${titulo}`;
-  const dativo = `bg-dativo-primary ${titulo}`;
-  const acusativo = `bg-acusativo-primary font-BookerlyBold text-sm text-white`;
-  const animado = `bg-acusativo-secondary font-BookerlyBold text-sm text-white`;
-  const inanimado = `bg-acusativo-secondary font-BookerlyBold text-sm text-white`;
-  const instrumental = `bg-instrumental-primary ${titulo}`;
-  const preposicional = `bg-preposicional-primary ${titulo}`;
-  const cuerpo_masculino = `bg-masculino-secondary`;
-  const cuerpo_femenino = `bg-femenino-secondary`;
-  const cuerpo_neutro = `bg-neutro-secondary`;
-  const cuerpo_plural = `bg-plural-secondary`;
+  const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% ${titulo}`;
+  const singular = `col-span-3 bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% ${titulo}`;
+  const masculino = `bg-gradient-to-b from-masculino-primario-claro from-5% via-masculino-primario-base to-masculino-primario-oscuro to-95% ${titulo}`;
+  const femenino = `bg-gradient-to-b from-femenino-primario-claro from-5% via-femenino-primario-base to-femenino-primario-oscuro to-95% ${titulo}`;
+  const neutro = `bg-gradient-to-b from-neutro-primario-claro from-5% via-neutro-primario-base to-neutro-primario-oscuro to-95% ${titulo}`;
+  const plural = `bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% ${titulo}`;
+  const nominativo = `bg-gradient-to-b from-nominativo-primario-claro from-5% via-nominativo-primario-base to-nominativo-primario-oscuro to-95% ${titulo}`;
+  const genitivo = `bg-gradient-to-b from-genitivo-primario-claro from-5% via-genitivo-primario-base to-genitivo-primario-oscuro to-95% ${titulo}`;
+  const dativo = `bg-gradient-to-b from-dativo-primario-claro from-5% via-dativo-primario-base to-dativo-primario-oscuro to-95% ${titulo}`;
+  const acusativo = `bg-gradient-to-b from-acusativo-primario-claro from-5% via-acusativo-primario-base to-acusativo-primario-oscuro to-95% font-BookerlyBold text-sm text-white`;
+  const animado = `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`;
+  const inanimado = `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`;
+  const instrumental = `bg-gradient-to-b from-instrumental-primario-claro from-5% via-instrumental-primario-base to-instrumental-primario-oscuro to-95% ${titulo}`;
+  const preposicional = `bg-gradient-to-b from-preposicional-primario-claro from-5% via-preposicional-primario-base to-preposicional-primario-oscuro to-95% ${titulo}`;
+  const cuerpo_masculino = `bg-masculino-secundario-base`;
+  const cuerpo_femenino = `bg-femenino-secundario-base`;
+  const cuerpo_neutro = `bg-neutro-secundario-base`;
+  const cuerpo_plural = `bg-plural-secundario-base`;
 
   if (tipo > 2) {
     tipo = 0;
@@ -35,11 +33,14 @@ function Tabla_Declinaciones({ tipo = 0 }: Tabla_DeclinacionesProps) {
     <div className="bg-lime-400 w-full h-full grid grid-cols-5">
       <Celda texto="Caso / Género" className={caso_genero} />
       <Celda texto="Singular" className={singular} />
-      <Celda texto="Plurales" className={plural_1} />
+      <Celda
+        texto="Plurales"
+        className={`row-span-2 ` + plural}
+        texto_2="(Todos los géneros)"
+      />
       <Celda texto="Masculino" className={masculino} />
       <Celda texto="Femenino" className={femenino} />
       <Celda texto="Neutro" className={neutro} />
-      <Celda texto="(Todos los géneros)" className={plural_2} />
       <Celda texto="Nominativo" className={nominativo} />
       <Celda className={cuerpo_masculino} />
       <Celda className={cuerpo_femenino} />
