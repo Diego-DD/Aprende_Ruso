@@ -1,0 +1,118 @@
+{
+  "titulo": {
+    "texto": "Tabla de Prueba",
+    "color": "bg-gradient-to-b from-nominativo-primario-claro from-5% via-nominativo-primario-base to-nominativo-primario-oscuro to-95%"
+  },
+  "nm": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "gm": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "dm": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aam": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aim": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "im": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "pm": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "nf": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "gf": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "df": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aaf": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aif": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "if": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "pf": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "nn": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "gn": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "dn": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aan": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "ain": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "in": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "pn": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "np": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "gp": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "dp": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aap": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "aip": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "ip": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  },
+  "pp": {
+    "texto": "MURCIELAGO",
+    "mitad": 4
+  }
+}

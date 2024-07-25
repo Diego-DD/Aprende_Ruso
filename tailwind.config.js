@@ -227,6 +227,7 @@ export default {
             oscuro: "#D9F7B9",
           },
         },
+        rojo_intenso: "#FF0000",
       },
     },
   },

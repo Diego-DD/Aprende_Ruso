@@ -3,19 +3,17 @@ import Celda from "./Celda";
 interface Tabla_DeclinacionesProps {
   tipo?: number;
   casos?: boolean;
-  titulo?: string;
-  color_titulo?: string;
   datos?: unknown;
 }
 
 function Tabla_Declinaciones({
   tipo = 0,
   casos = true,
-  titulo = "",
-  color_titulo = "bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95%",
   datos = "",
 }: Tabla_DeclinacionesProps) {
   const fuente_titulo = "font-BookerlyBold text-lg text-white";
+  const color_titulo =
+    "bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95%";
   const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% ${fuente_titulo}`;
   const singular = `col-span-3 bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% ${fuente_titulo}`;
   const masculino = `bg-gradient-to-b from-masculino-primario-claro from-5% via-masculino-primario-base to-masculino-primario-oscuro to-95% ${fuente_titulo}`;
@@ -50,12 +48,12 @@ function Tabla_Declinaciones({
     >
       {/* Encabezado */}
 
-      {titulo != "" && (
+      {obj.titulo.texto != "" && (
         <Celda
-          texto={titulo}
-          className={`${
-            casos ? "col-span-5" : "col-span-4"
-          } ${fuente_titulo} ${color_titulo}`}
+          texto={obj.titulo.texto}
+          className={`${casos ? "col-span-5" : "col-span-4"} ${fuente_titulo} ${
+            obj.titulo.color != "" ? obj.titulo.color : color_titulo
+          }`}
         />
       )}
 
@@ -76,19 +74,20 @@ function Tabla_Declinaciones({
 
       {casos && <Celda texto="Nominativo" className={nominativo} />}
       <Celda
-        texto={obj !== null ? obj.nominativo_masculino : undefined}
+        texto={obj !== null ? obj.nm.texto : undefined}
         className={cuerpo_masculino}
+        mitad={obj.nm.mitad}
       />
       <Celda
-        texto={obj !== null ? obj.nominativo_femenino : undefined}
+        texto={obj !== null ? obj.nf.texto : undefined}
         className={cuerpo_femenino}
       />
       <Celda
-        texto={obj !== null ? obj.nominativo_neutro : undefined}
+        texto={obj !== null ? obj.nn.texto : undefined}
         className={cuerpo_neutro}
       />
       <Celda
-        texto={obj !== null ? obj.nominativo_plural : undefined}
+        texto={obj !== null ? obj.np.texto : undefined}
         className={cuerpo_plural}
       />
 
@@ -96,35 +95,35 @@ function Tabla_Declinaciones({
 
       {casos && <Celda texto="Genitivo" className={genitivo} />}
       <Celda
-        texto={obj !== null ? obj.genitivo_masculino : undefined}
+        texto={obj !== null ? obj.gm.texto : undefined}
         className={cuerpo_masculino}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.genitivo_femenino : undefined}
+          texto={obj !== null ? obj.gf.texto : undefined}
           className={cuerpo_femenino}
         />
       )}
       {tipo === 1 && (
         <Celda
-          texto={obj !== null ? obj.genitivo_dativo_femenino : undefined}
+          texto={obj !== null ? obj.gdf.texto : undefined}
           className={`row-span-2 ` + cuerpo_femenino}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.genitivo_neutro : undefined}
+          texto={obj !== null ? obj.gn.texto : undefined}
           className={cuerpo_neutro}
         />
       )}
       {tipo === 2 && (
         <Celda
-          texto={obj !== null ? obj.genitivo_dativo_neutro : undefined}
+          texto={obj !== null ? obj.gdn.texto : undefined}
           className={`row-span-2 ` + cuerpo_neutro}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.genitivo_plural : undefined}
+        texto={obj !== null ? obj.gp.texto : undefined}
         className={cuerpo_plural}
       />
 
@@ -132,23 +131,23 @@ function Tabla_Declinaciones({
 
       {casos && <Celda texto="Dativo" className={dativo} />}
       <Celda
-        texto={obj !== null ? obj.dativo_masculino : undefined}
+        texto={obj !== null ? obj.dm.texto : undefined}
         className={cuerpo_masculino}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.dativo_femenino : undefined}
+          texto={obj !== null ? obj.df.texto : undefined}
           className={cuerpo_femenino}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.dativo_neutro : undefined}
+          texto={obj !== null ? obj.dn.texto : undefined}
           className={cuerpo_neutro}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.dativo_plural : undefined}
+        texto={obj !== null ? obj.dp.texto : undefined}
         className={cuerpo_plural}
       />
 
@@ -167,58 +166,58 @@ function Tabla_Declinaciones({
       {/* Acusativo animado */}
 
       <Celda
-        texto={obj !== null ? obj.acusativo_animado_masculino : undefined}
+        texto={obj !== null ? obj.aam.texto : undefined}
         className={cuerpo_masculino}
       />
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.acusativo_animado_femenino : undefined}
+          texto={obj !== null ? obj.aaf.texto : undefined}
           className={cuerpo_femenino}
         />
       )}
       {(tipo === 1 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.acusativo_femenino : undefined}
+          texto={obj !== null ? obj.af.texto : undefined}
           className={`row-span-2 ` + cuerpo_femenino}
         />
       )}
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.acusativo_animado_neutro : undefined}
+          texto={obj !== null ? obj.aan.texto : undefined}
           className={cuerpo_neutro}
         />
       )}
       {(tipo === 1 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.acusativo_neutro : undefined}
+          texto={obj !== null ? obj.an.texto : undefined}
           className={`row-span-2 ` + cuerpo_neutro}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.acusativo_animado_plural : undefined}
+        texto={obj !== null ? obj.aap.texto : undefined}
         className={cuerpo_plural}
       />
 
       {/* Acusativo inanimado */}
 
       <Celda
-        texto={obj !== null ? obj.acusativo_inanimado_masculino : undefined}
+        texto={obj !== null ? obj.aim.texto : undefined}
         className={cuerpo_masculino}
       />
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.acusativo_inanimado_femenino : undefined}
+          texto={obj !== null ? obj.aif.texto : undefined}
           className={cuerpo_femenino}
         />
       )}
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.acusativo_inanimado_neutro : undefined}
+          texto={obj !== null ? obj.ain.texto : undefined}
           className={cuerpo_neutro}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.acusativo_inanimado_plural : undefined}
+        texto={obj !== null ? obj.aip.texto : undefined}
         className={cuerpo_plural}
       />
 
@@ -226,39 +225,35 @@ function Tabla_Declinaciones({
 
       {casos && <Celda texto="Instrumental" className={instrumental} />}
       <Celda
-        texto={obj !== null ? obj.instrumental_masculino : undefined}
+        texto={obj !== null ? obj.im.texto : undefined}
         className={cuerpo_masculino}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.instrumental_femenino : undefined}
+          texto={obj !== null ? obj.if.texto : undefined}
           className={cuerpo_femenino}
         />
       )}
       {tipo === 1 && (
         <Celda
-          texto={
-            obj !== null ? obj.instrumental_preposicional_femenino : undefined
-          }
+          texto={obj !== null ? obj.ipf.texto : undefined}
           className={`row-span-2 ` + cuerpo_femenino}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.instrumental_neutro : undefined}
+          texto={obj !== null ? obj.in.texto : undefined}
           className={cuerpo_neutro}
         />
       )}
       {tipo === 2 && (
         <Celda
-          texto={
-            obj !== null ? obj.instrumental_preposicional_neutro : undefined
-          }
+          texto={obj !== null ? obj.ipn.texto : undefined}
           className={`row-span-2 ` + cuerpo_neutro}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.instrumental_plural : undefined}
+        texto={obj !== null ? obj.ip.texto : undefined}
         className={cuerpo_plural}
       />
 
@@ -266,23 +261,23 @@ function Tabla_Declinaciones({
 
       {casos && <Celda texto="Preposicional" className={preposicional} />}
       <Celda
-        texto={obj !== null ? obj.preposicional_masculino : undefined}
+        texto={obj !== null ? obj.pm.texto : undefined}
         className={cuerpo_masculino}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.preposicional_femenino : undefined}
+          texto={obj !== null ? obj.pf.texto : undefined}
           className={cuerpo_femenino}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.preposicional_neutro : undefined}
+          texto={obj !== null ? obj.pn.texto : undefined}
           className={cuerpo_neutro}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.preposicional_plural : undefined}
+        texto={obj !== null ? obj.pp.texto : undefined}
         className={cuerpo_plural}
       />
     </div>
