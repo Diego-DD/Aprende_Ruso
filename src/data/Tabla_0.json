@@ -1,30 +1,114 @@
 {
-  "nominativo_masculino": "1",
-  "genitivo_masculino": "2",
-  "dativo_masculino": "3",
-  "acusativo_animado_masculino": "4",
-  "acusativo_inanimado_masculino": "5",
-  "instrumental_masculino": "6",
-  "preposicional_masculino": "7",
-  "nominativo_femenino": "8",
-  "genitivo_femenino": "9",
-  "dativo_femenino": "10",
-  "acusativo_animado_femenino": "11",
-  "acusativo_inanimado_femenino": "12",
-  "instrumental_femenino": "13",
-  "preposicional_femenino": "14",
-  "nominativo_neutro": "15",
-  "genitivo_neutro": "16",
-  "dativo_neutro": "17",
-  "acusativo_animado_neutro": "18",
-  "acusativo_inanimado_neutro": "19",
-  "instrumental_neutro": "20",
-  "preposicional_neutro": "21",
-  "nominativo_plural": "22",
-  "genitivo_plural": "23",
-  "dativo_plural": "24",
-  "acusativo_animado_plural": "25",
-  "acusativo_inanimado_plural": "26",
-  "instrumental_plural": "27",
-  "preposicional_plural": "28"
+  "nm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "dm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aam": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aim": {
+    "texto": "",
+    "mitad": 0
+  },
+  "im": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "nf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "df": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aaf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aif": {
+    "texto": "",
+    "mitad": 0
+  },
+  "if": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "nn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "dn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aan": {
+    "texto": "",
+    "mitad": 0
+  },
+  "ain": {
+    "texto": "",
+    "mitad": 0
+  },
+  "in": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "np": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gp": {
+    "texto": "",
+    "mitad": 0
+  },
+  "dp": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aap": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aip": {
+    "texto": "",
+    "mitad": 0
+  },
+  "ip": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pp": {
+    "texto": "",
+    "mitad": 0
+  }
 }

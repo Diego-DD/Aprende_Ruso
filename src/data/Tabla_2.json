@@ -1,26 +1,98 @@
 {
-  "nominativo_masculino": "1",
-  "genitivo_masculino": "2",
-  "dativo_masculino": "3",
-  "acusativo_animado_masculino": "4",
-  "acusativo_inanimado_masculino": "5",
-  "instrumental_masculino": "6",
-  "preposicional_masculino": "7",
-  "nominativo_femenino": "8",
-  "genitivo_femenino": "9",
-  "dativo_femenino": "10",
-  "acusativo_femenino": "11",
-  "instrumental_femenino": "12",
-  "preposicional_femenino": "13",
-  "nominativo_neutro": "14",
-  "genitivo_dativo_neutro": "15",
-  "acusativo_neutro": "16",
-  "instrumental_preposicional_neutro": "17",
-  "nominativo_plural": "18",
-  "genitivo_plural": "19",
-  "dativo_plural": "20",
-  "acusativo_animado_plural": "21",
-  "acusativo_inanimado_plural": "22",
-  "instrumental_plural": "23",
-  "preposicional_plural": "24"
+  "nm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "dm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aam": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aim": {
+    "texto": "",
+    "mitad": 0
+  },
+  "im": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pm": {
+    "texto": "",
+    "mitad": 0
+  },
+  "nf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "df": {
+    "texto": "",
+    "mitad": 0
+  },
+  "af": {
+    "texto": "",
+    "mitad": 0
+  },
+  "if": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pf": {
+    "texto": "",
+    "mitad": 0
+  },
+  "nn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gdn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "an": {
+    "texto": "",
+    "mitad": 0
+  },
+  "ipn": {
+    "texto": "",
+    "mitad": 0
+  },
+  "np": {
+    "texto": "",
+    "mitad": 0
+  },
+  "gp": {
+    "texto": "",
+    "mitad": 0
+  },
+  "dp": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aap": {
+    "texto": "",
+    "mitad": 0
+  },
+  "aip": {
+    "texto": "",
+    "mitad": 0
+  },
+  "ip": {
+    "texto": "",
+    "mitad": 0
+  },
+  "pp": {
+    "texto": "",
+    "mitad": 0
+  }
 }

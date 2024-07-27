@@ -1,19 +1,31 @@
+/*
+Uso del componente Tabla_Declinaciones:
+import Tabla_Declinaciones from "./components/Tabla_Declinaciones";   // Componente
+import * as Datos from "./data/index";                                // Datos JSON
+
+<Tabla_Declinaciones datos={Datos.Tabla_0}
+*/
+
 import Celda from "./Celda";
 
 interface Tabla_DeclinacionesProps {
-  tipo?: number;
-  casos?: boolean;
-  datos?: unknown;
+  tipo?: number; // Tipo de tabla: 0, 1 o 2
+  casos?: boolean; // Mostrar la columna de casos.
+  titulo?: string; // Agregar título a la tabla.
+  color_titulo?: string; // Color de fondo del título.
+  datos?: unknown; // JSON con los datos de la tabla.
 }
 
 function Tabla_Declinaciones({
   tipo = 0,
   casos = true,
+  titulo = "",
+  color_titulo = "bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95%",
   datos = "",
 }: Tabla_DeclinacionesProps) {
+  // Variables de control de estilos en la tabla.
+
   const fuente_titulo = "font-BookerlyBold text-lg text-white";
-  const color_titulo =
-    "bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95%";
   const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% ${fuente_titulo}`;
   const singular = `col-span-3 bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% ${fuente_titulo}`;
   const masculino = `bg-gradient-to-b from-masculino-primario-claro from-5% via-masculino-primario-base to-masculino-primario-oscuro to-95% ${fuente_titulo}`;
@@ -33,9 +45,7 @@ function Tabla_Declinaciones({
   const cuerpo_neutro = `bg-neutro-secundario-base`;
   const cuerpo_plural = `bg-plural-secundario-base`;
 
-  if (tipo > 2) {
-    tipo = 0;
-  }
+  // Conversión del JSON entrante a objeto.
 
   let obj = null;
   if (datos != "") {
@@ -48,12 +58,12 @@ function Tabla_Declinaciones({
     >
       {/* Encabezado */}
 
-      {obj.titulo.texto != "" && (
+      {titulo != "" && (
         <Celda
-          texto={obj.titulo.texto}
-          className={`${casos ? "col-span-5" : "col-span-4"} ${fuente_titulo} ${
-            obj.titulo.color != "" ? obj.titulo.color : color_titulo
-          }`}
+          texto={titulo}
+          className={`${
+            casos ? "col-span-5" : "col-span-4"
+          } ${fuente_titulo} ${color_titulo}`}
         />
       )}
 
@@ -74,81 +84,94 @@ function Tabla_Declinaciones({
 
       {casos && <Celda texto="Nominativo" className={nominativo} />}
       <Celda
-        texto={obj !== null ? obj.nm.texto : undefined}
+        texto={datos != "" ? obj.nm.texto : ""}
         className={cuerpo_masculino}
-        mitad={obj.nm.mitad}
+        mitad={datos != "" ? obj.nm.mitad : 0}
       />
       <Celda
-        texto={obj !== null ? obj.nf.texto : undefined}
+        texto={datos != "" ? obj.nf.texto : ""}
         className={cuerpo_femenino}
+        mitad={datos != "" ? obj.nf.mitad : 0}
       />
       <Celda
-        texto={obj !== null ? obj.nn.texto : undefined}
+        texto={datos != "" ? obj.nn.texto : ""}
         className={cuerpo_neutro}
+        mitad={datos != "" ? obj.nn.mitad : 0}
       />
       <Celda
-        texto={obj !== null ? obj.np.texto : undefined}
+        texto={datos != "" ? obj.np.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.np.mitad : 0}
       />
 
       {/* Genitivo */}
 
       {casos && <Celda texto="Genitivo" className={genitivo} />}
       <Celda
-        texto={obj !== null ? obj.gm.texto : undefined}
+        texto={datos != "" ? obj.gm.texto : ""}
         className={cuerpo_masculino}
+        mitad={datos != "" ? obj.gm.mitad : 0}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.gf.texto : undefined}
+          texto={datos != "" ? obj.gf.texto : ""}
           className={cuerpo_femenino}
+          mitad={datos != "" ? obj.gf.mitad : 0}
         />
       )}
       {tipo === 1 && (
         <Celda
-          texto={obj !== null ? obj.gdf.texto : undefined}
+          texto={datos != "" ? obj.gdf.texto : ""}
           className={`row-span-2 ` + cuerpo_femenino}
+          mitad={datos != "" ? obj.gdf.mitad : 0}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.gn.texto : undefined}
+          texto={datos != "" ? obj.gn.texto : ""}
           className={cuerpo_neutro}
+          mitad={datos != "" ? obj.gn.mitad : 0}
         />
       )}
       {tipo === 2 && (
         <Celda
-          texto={obj !== null ? obj.gdn.texto : undefined}
+          texto={datos != "" ? obj.gdn.texto : ""}
           className={`row-span-2 ` + cuerpo_neutro}
+          mitad={datos != "" ? obj.gdn.mitad : 0}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.gp.texto : undefined}
+        texto={datos != "" ? obj.gp.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.gp.mitad : 0}
       />
 
       {/* Dativo */}
 
       {casos && <Celda texto="Dativo" className={dativo} />}
       <Celda
-        texto={obj !== null ? obj.dm.texto : undefined}
+        texto={datos != "" ? obj.dm.texto : ""}
         className={cuerpo_masculino}
+        mitad={datos != "" ? obj.dm.mitad : 0}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.df.texto : undefined}
+          texto={datos != "" ? obj.df.texto : ""}
           className={cuerpo_femenino}
+          mitad={datos != "" ? obj.df.mitad : 0}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.dn.texto : undefined}
+          texto={datos != "" ? obj.dn.texto : ""}
           className={cuerpo_neutro}
+          mitad={datos != "" ? obj.dn.mitad : 0}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.dp.texto : undefined}
+        texto={datos != "" ? obj.dp.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.dp.mitad : 0}
       />
 
       {/* Acusativo */}
@@ -166,119 +189,139 @@ function Tabla_Declinaciones({
       {/* Acusativo animado */}
 
       <Celda
-        texto={obj !== null ? obj.aam.texto : undefined}
+        texto={datos != "" ? obj.aam.texto : ""}
         className={cuerpo_masculino}
+        mitad={datos != "" ? obj.aam.mitad : 0}
       />
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.aaf.texto : undefined}
+          texto={datos != "" ? obj.aaf.texto : ""}
           className={cuerpo_femenino}
+          mitad={datos != "" ? obj.aaf.mitad : 0}
         />
       )}
       {(tipo === 1 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.af.texto : undefined}
+          texto={datos != "" ? obj.af.texto : ""}
           className={`row-span-2 ` + cuerpo_femenino}
+          mitad={datos != "" ? obj.af.mitad : 0}
         />
       )}
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.aan.texto : undefined}
+          texto={datos != "" ? obj.aan.texto : ""}
           className={cuerpo_neutro}
+          mitad={datos != "" ? obj.aan.mitad : 0}
         />
       )}
       {(tipo === 1 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.an.texto : undefined}
+          texto={datos != "" ? obj.an.texto : ""}
           className={`row-span-2 ` + cuerpo_neutro}
+          mitad={datos != "" ? obj.an.mitad : 0}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.aap.texto : undefined}
+        texto={datos != "" ? obj.aap.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.aap.mitad : 0}
       />
 
       {/* Acusativo inanimado */}
 
       <Celda
-        texto={obj !== null ? obj.aim.texto : undefined}
+        texto={datos != "" ? obj.aim.texto : ""}
         className={cuerpo_masculino}
+        mitad={datos != "" ? obj.aim.mitad : 0}
       />
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.aif.texto : undefined}
+          texto={datos != "" ? obj.aif.texto : ""}
           className={cuerpo_femenino}
+          mitad={datos != "" ? obj.aif.mitad : 0}
         />
       )}
       {tipo === 0 && (
         <Celda
-          texto={obj !== null ? obj.ain.texto : undefined}
+          texto={datos != "" ? obj.ain.texto : ""}
           className={cuerpo_neutro}
+          mitad={datos != "" ? obj.ain.mitad : 0}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.aip.texto : undefined}
+        texto={datos != "" ? obj.aip.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.aip.mitad : 0}
       />
 
       {/* Instrumental */}
 
       {casos && <Celda texto="Instrumental" className={instrumental} />}
       <Celda
-        texto={obj !== null ? obj.im.texto : undefined}
+        texto={datos != "" ? obj.im.texto : ""}
         className={cuerpo_masculino}
+        mitad={datos != "" ? obj.im.mitad : 0}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.if.texto : undefined}
+          texto={datos != "" ? obj.if.texto : ""}
           className={cuerpo_femenino}
+          mitad={datos != "" ? obj.if.mitad : 0}
         />
       )}
       {tipo === 1 && (
         <Celda
-          texto={obj !== null ? obj.ipf.texto : undefined}
+          texto={datos != "" ? obj.ipf.texto : ""}
           className={`row-span-2 ` + cuerpo_femenino}
+          mitad={datos != "" ? obj.ipf.mitad : 0}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.in.texto : undefined}
+          texto={datos != "" ? obj.in.texto : ""}
           className={cuerpo_neutro}
+          mitad={datos != "" ? obj.in.mitad : 0}
         />
       )}
       {tipo === 2 && (
         <Celda
-          texto={obj !== null ? obj.ipn.texto : undefined}
+          texto={datos != "" ? obj.ipn.texto : ""}
           className={`row-span-2 ` + cuerpo_neutro}
+          mitad={datos != "" ? obj.ipn.mitad : 0}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.ip.texto : undefined}
+        texto={datos != "" ? obj.ip.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.ip.mitad : 0}
       />
 
       {/* Preposicional */}
 
       {casos && <Celda texto="Preposicional" className={preposicional} />}
       <Celda
-        texto={obj !== null ? obj.pm.texto : undefined}
+        texto={datos != "" ? obj.pm.texto : ""}
         className={cuerpo_masculino}
+        mitad={datos != "" ? obj.pm.mitad : 0}
       />
       {(tipo === 0 || tipo === 2) && (
         <Celda
-          texto={obj !== null ? obj.pf.texto : undefined}
+          texto={datos != "" ? obj.pf.texto : ""}
           className={cuerpo_femenino}
+          mitad={datos != "" ? obj.pf.mitad : 0}
         />
       )}
       {(tipo === 0 || tipo === 1) && (
         <Celda
-          texto={obj !== null ? obj.pn.texto : undefined}
+          texto={datos != "" ? obj.pn.texto : ""}
           className={cuerpo_neutro}
+          mitad={datos != "" ? obj.pn.mitad : 0}
         />
       )}
       <Celda
-        texto={obj !== null ? obj.pp.texto : undefined}
+        texto={datos != "" ? obj.pp.texto : ""}
         className={cuerpo_plural}
+        mitad={datos != "" ? obj.pp.mitad : 0}
       />
     </div>
   );
