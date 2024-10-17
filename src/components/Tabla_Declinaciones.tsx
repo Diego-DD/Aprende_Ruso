@@ -3,7 +3,7 @@ Uso del componente Tabla_Declinaciones:
 import Tabla_Declinaciones from "./components/Tabla_Declinaciones";   // Componente
 import * as Datos from "./data/index";                                // Datos JSON
 
-<Tabla_Declinaciones datos={Datos.Tabla_0}
+<Tabla_Declinaciones datos={Datos.Tabla_0}/>
 */
 
 import Celda from "./Celda";
@@ -26,12 +26,12 @@ function Tabla_Declinaciones({
   // Variables de control de estilos en la tabla.
 
   const fuente_titulo = "font-BookerlyBold text-lg text-white";
-  const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% ${fuente_titulo}`;
+  const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% rounded-tl-3xl ${fuente_titulo}`;
   const singular = `col-span-3 bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% ${fuente_titulo}`;
   const masculino = `bg-gradient-to-b from-masculino-primario-claro from-5% via-masculino-primario-base to-masculino-primario-oscuro to-95% ${fuente_titulo}`;
   const femenino = `bg-gradient-to-b from-femenino-primario-claro from-5% via-femenino-primario-base to-femenino-primario-oscuro to-95% ${fuente_titulo}`;
   const neutro = `bg-gradient-to-b from-neutro-primario-claro from-5% via-neutro-primario-base to-neutro-primario-oscuro to-95% ${fuente_titulo}`;
-  const plural = `bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% ${fuente_titulo}`;
+  const plural = `bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% rounded-tr-3xl ${fuente_titulo}`;
   const nominativo = `bg-gradient-to-b from-nominativo-primario-claro from-5% via-nominativo-primario-base to-nominativo-primario-oscuro to-95% ${fuente_titulo}`;
   const genitivo = `bg-gradient-to-b from-genitivo-primario-claro from-5% via-genitivo-primario-base to-genitivo-primario-oscuro to-95% ${fuente_titulo}`;
   const dativo = `bg-gradient-to-b from-dativo-primario-claro from-5% via-dativo-primario-base to-dativo-primario-oscuro to-95% ${fuente_titulo}`;
@@ -39,7 +39,7 @@ function Tabla_Declinaciones({
   const animado = `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`;
   const inanimado = `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`;
   const instrumental = `bg-gradient-to-b from-instrumental-primario-claro from-5% via-instrumental-primario-base to-instrumental-primario-oscuro to-95% ${fuente_titulo}`;
-  const preposicional = `bg-gradient-to-b from-preposicional-primario-claro from-5% via-preposicional-primario-base to-preposicional-primario-oscuro to-95% ${fuente_titulo}`;
+  const preposicional = `bg-gradient-to-b from-preposicional-primario-claro from-5% via-preposicional-primario-base to-preposicional-primario-oscuro to-95% rounded-bl-3xl ${fuente_titulo}`;
   const cuerpo_masculino = `bg-masculino-secundario-base`;
   const cuerpo_femenino = `bg-femenino-secundario-base`;
   const cuerpo_neutro = `bg-neutro-secundario-base`;
@@ -54,7 +54,7 @@ function Tabla_Declinaciones({
 
   return (
     <div
-      className={`w-full h-full grid ${casos ? "grid-cols-5" : "grid-cols-4"}`}
+      className={`w-full h-full grid ${casos ? "grid-cols-5" : "grid-cols-4"} `}
     >
       {/* Encabezado */}
 
@@ -320,7 +320,7 @@ function Tabla_Declinaciones({
       )}
       <Celda
         texto={datos != "" ? obj.pp.texto : ""}
-        className={cuerpo_plural}
+        className={cuerpo_plural + " rounded-br-3xl"}
         mitad={datos != "" ? obj.pp.mitad : 0}
       />
     </div>
