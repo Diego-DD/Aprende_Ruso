@@ -8,6 +8,12 @@ export default {
         BookerlyItalic: ["Italic"],
         BookerlyBold: ["Bold"],
         BookerlyBoldItalic: ["BoldItalic"],
+        RussianSpring: ["RussSpr_Regular"],
+        RussianSpringItalic: ["RussSpr_Italic"],
+        RussianSpringBold: ["RussSpr_Bold"],
+        RussianSpringBoldItalic: ["RussSpr_BoldItalic"],
+        RussianSpringShadow: ["RussSprSh_Regular"],
+        RussianSpringItalicShadow: ["RussSprSh_Italic"],
       },
       colors: {
         singular: {
@@ -228,6 +234,8 @@ export default {
           },
         },
         rojo_intenso: "#FF0000",
+        "dark-purple": "#081A51",
+        "light-white": "rgba(255, 255, 255, 0.17)",
       },
     },
   },
