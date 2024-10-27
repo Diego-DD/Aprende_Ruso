@@ -2,6 +2,9 @@ import { useState } from "react";
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [hoveredMenu, setHoveredMenu] = useState<number | null>(null);
+  const [showSearchTooltip, setShowSearchTooltip] = useState(false);
+  const [showLogoTooltip, setShowLogoTooltip] = useState(false);
 
   const Menus = [
     {
@@ -56,37 +59,59 @@ const Sidebar = () => {
     } else {
       setOpen(!open);
     }
-
     if (!open) {
       setSearchQuery(""); // Vaciar el input cada vez que el sidebar se despliega
     }
   };
 
   return (
-    <div className="h-full pb-2.5 fixed flex z-50">
+    <div className="h-full pb-2 fixed flex z-50">
+      {/* Contenedor */}
+
       <div
         className={` ${
           open ? "w-72" : "w-20 "
-        } bg-dark-purple h-auto p-5 pt-6 relative duration-300 rounded-lg`}
+        } bg-dark-purple h-auto p-5 pt-6 relative duration-300 rounded-lg shadow-lg`}
       >
+        {/* Logotipo */}
+
         <div className="flex gap-x-4 items-center mb-4">
           {open ? (
+            // Logotipo en versión extendida
+
             <img
               src="./src/assets/logo.png"
               className={`cursor-pointer duration-500 hover:scale-125 transition-all ${
                 open && "rotate-[360deg]"
               }`}
               onClick={() => handleSidebarToggle(true)}
+              onMouseEnter={() => setShowLogoTooltip(true)}
+              onMouseLeave={() => setShowLogoTooltip(false)}
             />
           ) : (
+            // Logotipo en versión reducida
+
             <img
               src="./src/assets/desplegar.png"
               className={`cursor-pointer duration-500 hover:scale-125 transition-all ${
                 open && "rotate-[360deg]"
               }`}
               onClick={() => handleSidebarToggle(true)}
+              onMouseEnter={() => setShowLogoTooltip(true)}
+              onMouseLeave={() => setShowLogoTooltip(false)}
             />
           )}
+
+          {/* Tooltip del logotipo */}
+
+          {!open && showLogoTooltip && (
+            <div className="absolute left-full ml-2 bg-gray-800 font-BookerlyBold text-white text-xs p-2 rounded shadow-lg text-nowrap">
+              Desplegar menú
+            </div>
+          )}
+
+          {/* Título del sidebar */}
+
           <h1
             className={`text-white origin-left font-BookerlyBoldItalic text-lg duration-200 ${
               !open && "scale-0"
@@ -96,18 +121,29 @@ const Sidebar = () => {
           </h1>
         </div>
 
+        {/* División #1 */}
+
         <hr className="my-1 border-sky-800 border" />
+
+        {/* Buscador */}
 
         <div
           className={`flex rounded-md py-2 font-BookerlyBold cursor-pointer ${
             !open && `hover:bg-light-white`
           }  text-gray-300 text-xs items-center gap-x-4`}
           onClick={() => handleSidebarToggle(false)}
+          onMouseEnter={() => setShowSearchTooltip(true)}
+          onMouseLeave={() => setShowSearchTooltip(false)}
         >
+          {/* Icono de búsqueda */}
+
           <img
             src={`./src/assets/Buscar.png`}
             className="absolute pl-2 z-10 hover:scale-125 transition-all"
           />
+
+          {/* Input de búsqueda */}
+
           <input
             type="text"
             placeholder="Buscar . . . ."
@@ -117,32 +153,59 @@ const Sidebar = () => {
               open ? "w-full" : "w-0 opacity-0"
             }`}
           />
+
+          {/* Tooltip del campo de búsqueda */}
+
+          {!open && showSearchTooltip && (
+            <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
+              Buscar contenido
+            </div>
+          )}
         </div>
+
+        {/* División #2 */}
 
         <hr className="my-1 border-sky-800 border" />
 
+        {/* Menú */}
+
         <ul>
           {Menus.map((Menu, index) => (
+            // Contenido general de los elementos del menú
+
             <li
               key={index}
-              className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-gray-300 text-xs items-center gap-x-4 mt-6 hover:bg-light-white"
+              className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-xs items-center gap-x-4 mt-6 hover:bg-light-white"
+              onMouseEnter={() => setHoveredMenu(index)}
+              onMouseLeave={() => setHoveredMenu(null)}
               onClick={() => handleSidebarToggle(false)}
             >
+              {/* Iconos del menú */}
+
               <img
                 src={`./src/assets/${Menu.src}.png`}
                 className="hover:scale-125 transition-all"
               />
+
+              {/* Títulos del menú */}
+
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {Menu.title}
               </span>
+
+              {/* Íconos de submenú */}
+
               {open && Menu.submenu && (
                 <img
                   src="./src/assets/submenu.png"
                   className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
                 />
               )}
-              {!open && (
-                <div className="absolute left-20 bg-sky-50 text-indigo-300 text-center p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out w-fit border border-blue-800 ml-1 text-nowrap">
+
+              {/* Tooltips */}
+
+              {!open && hoveredMenu === index && (
+                <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
                   {Menu.title}
                 </div>
               )}
