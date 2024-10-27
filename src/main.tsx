@@ -7,7 +7,7 @@ import Sidebar from "./components/Sidebar";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <div className="h-full w-full bg-gradient-to-b from-white from-0% via-blue-100 via-50% to-rose-100 to-100% p-1">
+    <div className="h-full w-full bg-gradient-to-b from-white from-0% via-blue-100 via-50% to-rose-100 to-100% p-1 flex flex-col">
       <Sidebar />
       <Header />
       <App />
