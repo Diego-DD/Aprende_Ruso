@@ -71,7 +71,10 @@ const Sidebar = () => {
       <div
         className={` ${
           open ? "w-72" : "w-20 "
-        } bg-dark-purple h-auto p-5 pt-6 relative duration-300 rounded-lg shadow-lg`}
+        } bg-cover bg-center h-auto p-5 pt-6 relative duration-300 rounded-lg shadow-lg`}
+        style={{
+          backgroundImage: `url('/images/Sidebars/Sidebar1.jpg')`,
+        }}
       >
         {/* Logotipo */}
 
@@ -107,6 +110,12 @@ const Sidebar = () => {
           {!open && showLogoTooltip && (
             <div className="absolute left-full ml-2 bg-gray-800 font-BookerlyBold text-white text-xs p-2 rounded shadow-lg text-nowrap">
               Desplegar menú
+            </div>
+          )}
+
+          {open && showLogoTooltip && (
+            <div className="absolute left-full ml-2 bg-white font-BookerlyBold text-gray-800 text-xs p-2 rounded shadow-lg text-nowrap">
+              Retraer menú
             </div>
           )}
 
