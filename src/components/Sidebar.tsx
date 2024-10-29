@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,15 +55,24 @@ const Sidebar = () => {
   ];
 
   const handleSidebarToggle = (master: boolean) => {
-    if (!master) {
-      setOpen(true);
-    } else {
+    if (master) {
       setOpen(!open);
+      playSidebarSound();
+    } else {
+      setOpen(true);
+      if (!open) {
+        playSidebarSound();
+      }
     }
     if (!open) {
       setSearchQuery(""); // Vaciar el input cada vez que el sidebar se despliega
     }
   };
+
+  function playSidebarSound() {
+    if (!open) new Audio("/src/assets/sounds/closeSidebar.mp3").play();
+    else new Audio("/src/assets/sounds/openSidebar.mp3").play();
+  }
 
   return (
     <div className="h-full pb-2 fixed flex z-50">
@@ -73,7 +83,7 @@ const Sidebar = () => {
           open ? "w-72" : "w-20 "
         } bg-cover bg-center h-auto p-5 pt-6 relative duration-300 rounded-lg shadow-lg`}
         style={{
-          backgroundImage: `url('/images/Sidebars/Sidebar1.jpg')`,
+          backgroundImage: `url('./src/assets/images/Sidebars/Sidebar1.jpg')`,
         }}
       >
         {/* Logotipo */}
@@ -83,7 +93,7 @@ const Sidebar = () => {
             // Logotipo en versión extendida
 
             <img
-              src="./src/assets/logo.png"
+              src="./src/assets/icons/logo.png"
               className={`cursor-pointer duration-500 hover:scale-125 transition-all ${
                 open && "rotate-[360deg]"
               }`}
@@ -95,7 +105,7 @@ const Sidebar = () => {
             // Logotipo en versión reducida
 
             <img
-              src="./src/assets/desplegar.png"
+              src="./src/assets/icons/desplegar.png"
               className={`cursor-pointer duration-500 hover:scale-125 transition-all ${
                 open && "rotate-[360deg]"
               }`}
@@ -147,7 +157,7 @@ const Sidebar = () => {
           {/* Icono de búsqueda */}
 
           <img
-            src={`./src/assets/Buscar.png`}
+            src={`./src/assets/icons/Buscar.png`}
             className="absolute pl-2 z-10 hover:scale-125 transition-all"
           />
 
@@ -192,7 +202,7 @@ const Sidebar = () => {
               {/* Iconos del menú */}
 
               <img
-                src={`./src/assets/${Menu.src}.png`}
+                src={`./src/assets/icons/${Menu.src}.png`}
                 className="hover:scale-125 transition-all"
               />
 
@@ -206,7 +216,7 @@ const Sidebar = () => {
 
               {open && Menu.submenu && (
                 <img
-                  src="./src/assets/submenu.png"
+                  src="./src/assets/icons/submenu.png"
                   className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
                 />
               )}

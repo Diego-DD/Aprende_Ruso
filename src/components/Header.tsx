@@ -14,7 +14,7 @@ function Header({ titulo = "APRENDE RUSO" }: HeaderProps) {
       <header
         className="w-full bg-cover bg-center h-[15%] text-white p-4 flex items-center justify-center rounded-xl shadow-lg sm:ml-4 md:ml-3.5 lg:ml-3"
         style={{
-          backgroundImage: `url('/images/Headers/2xl.jpg')`,
+          backgroundImage: `url('./src/assets/images/headers/2xl.jpg')`,
         }}
       >
         {/* Título del header */}
