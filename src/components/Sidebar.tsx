@@ -7,6 +7,12 @@ const Sidebar = () => {
   const [showSearchTooltip, setShowSearchTooltip] = useState(false);
   const [showLogoTooltip, setShowLogoTooltip] = useState(false);
 
+  const openSidebarSound = new Audio("./src/assets/sounds/open_sidebar.mp3");
+  const closeSidebarSound = new Audio("./src/assets/sounds/close_sidebar.mp3");
+  const hoverMenuSound = new Audio("./src/assets/sounds/menu_option_hover.mp3");
+  const openSubmenuSound = new Audio("./src/assets/sounds/staple.mp3");
+  const logoSound = new Audio("./src/assets/sounds/pop_bubbles.mp3");
+
   const Menus = [
     {
       title: "Consideraciones iniciales",
@@ -70,8 +76,36 @@ const Sidebar = () => {
   };
 
   function playSidebarSound() {
-    if (!open) new Audio("/src/assets/sounds/closeSidebar.mp3").play();
-    else new Audio("/src/assets/sounds/openSidebar.mp3").play();
+    if (!open) closeSidebarSound.play();
+    else openSidebarSound.play();
+  }
+
+  function logoHoverActions() {
+    setShowLogoTooltip(true);
+    logoSound.play();
+  }
+
+  function logoHoverLeaveActions() {
+    setShowLogoTooltip(false);
+  }
+
+  function searchHoverActions() {
+    setShowSearchTooltip(true);
+    if (!open) hoverMenuSound.play();
+  }
+
+  function searchHoverLeaveActions() {
+    setShowSearchTooltip(false);
+    setHoveredMenu(null);
+  }
+
+  function optionMenuHoverActions(index: number) {
+    setHoveredMenu(index);
+    hoverMenuSound.play();
+  }
+
+  function optionMenuHoverLeaveActions() {
+    setHoveredMenu(null);
   }
 
   return (
@@ -94,24 +128,24 @@ const Sidebar = () => {
 
             <img
               src="./src/assets/icons/logo.png"
-              className={`cursor-pointer duration-500 hover:scale-125 transition-all ${
+              className={`cursor-pointer duration-150 hover:scale-125 transition-all ${
                 open && "rotate-[360deg]"
               }`}
               onClick={() => handleSidebarToggle(true)}
-              onMouseEnter={() => setShowLogoTooltip(true)}
-              onMouseLeave={() => setShowLogoTooltip(false)}
+              onMouseEnter={() => logoHoverActions()}
+              onMouseLeave={() => logoHoverLeaveActions()}
             />
           ) : (
             // Logotipo en versión reducida
 
             <img
               src="./src/assets/icons/desplegar.png"
-              className={`cursor-pointer duration-500 hover:scale-125 transition-all ${
+              className={`cursor-pointer duration-150 hover:scale-125 transition-all ${
                 open && "rotate-[360deg]"
               }`}
               onClick={() => handleSidebarToggle(true)}
-              onMouseEnter={() => setShowLogoTooltip(true)}
-              onMouseLeave={() => setShowLogoTooltip(false)}
+              onMouseEnter={() => logoHoverActions()}
+              onMouseLeave={() => logoHoverLeaveActions()}
             />
           )}
 
@@ -151,8 +185,8 @@ const Sidebar = () => {
             !open && `hover:bg-light-white`
           }  text-gray-300 text-xs items-center gap-x-4`}
           onClick={() => handleSidebarToggle(false)}
-          onMouseEnter={() => setShowSearchTooltip(true)}
-          onMouseLeave={() => setShowSearchTooltip(false)}
+          onMouseEnter={() => searchHoverActions()}
+          onMouseLeave={() => searchHoverLeaveActions()}
         >
           {/* Icono de búsqueda */}
 
@@ -195,8 +229,8 @@ const Sidebar = () => {
             <li
               key={index}
               className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-xs items-center gap-x-4 mt-6 hover:bg-light-white"
-              onMouseEnter={() => setHoveredMenu(index)}
-              onMouseLeave={() => setHoveredMenu(null)}
+              onMouseEnter={() => optionMenuHoverActions(index)}
+              onMouseLeave={() => optionMenuHoverLeaveActions()}
               onClick={() => handleSidebarToggle(false)}
             >
               {/* Iconos del menú */}
@@ -218,6 +252,7 @@ const Sidebar = () => {
                 <img
                   src="./src/assets/icons/submenu.png"
                   className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
+                  onClick={() => openSubmenuSound.play()}
                 />
               )}
 
