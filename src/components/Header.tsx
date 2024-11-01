@@ -4,15 +4,11 @@ interface HeaderProps {
 
 function Header({ titulo = "APRENDE RUSO" }: HeaderProps) {
   return (
-    <div className="flex w-full">
-      {/* Espacio en blanco reservado para el sidebar*/}
-
-      <div className="w-20"></div>
-
+    <div className="w-full">
       {/* Cuerpo e imagen del header */}
 
       <header
-        className="w-full bg-cover bg-center h-[15%] text-white p-4 flex items-center justify-center rounded-xl shadow-lg sm:ml-4 md:ml-3.5 lg:ml-3"
+        className="w-full bg-cover bg-center h-[15%] text-white p-4 flex items-center justify-center rounded-xl shadow-lg sm:ml-2 md:ml-1 lg:ml-0"
         style={{
           backgroundImage: `url('./src/assets/images/headers/2xl.jpg')`,
         }}

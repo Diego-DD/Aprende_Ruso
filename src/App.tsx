@@ -3,12 +3,9 @@ import Vocabulario from "./components/Vocabulario";
 
 function App() {
   return (
-    <div className="flex w-full h-full p-1.5">
-      <div className="bg-transparent w-20"></div>
+    <div className="w-full h-full">
       <div>
-        <div className="w-auto h-auto">
-          <Tabla_Declinaciones />
-        </div>
+        <Tabla_Declinaciones />
         <Vocabulario />
         <Vocabulario />
         <Vocabulario />

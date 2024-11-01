@@ -7,10 +7,16 @@ import Sidebar from "./components/Sidebar";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <div className="h-full w-full bg-gradient-to-b from-white from-0% via-blue-100 via-50% to-rose-100 to-100% p-1 relative">
+    <div
+      id="general"
+      className="bg-gradient-to-b from-white from-0% via-blue-100 via-50% to-rose-100 to-100% w-full h-full flex flex-row p-1 gap-2"
+    >
       <Sidebar />
-      <Header />
-      <App />
+      <div id="sidebar_spacer" className="w-20"></div>
+      <div id="header&app" className="w-full h-full flex flex-col gap-1">
+        <Header />
+        <App />
+      </div>
     </div>
   </React.StrictMode>
 );

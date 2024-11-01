@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useSound from "use-sound";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -7,11 +8,17 @@ const Sidebar = () => {
   const [showSearchTooltip, setShowSearchTooltip] = useState(false);
   const [showLogoTooltip, setShowLogoTooltip] = useState(false);
 
-  const openSidebarSound = new Audio("./src/assets/sounds/open_sidebar.mp3");
-  const closeSidebarSound = new Audio("./src/assets/sounds/close_sidebar.mp3");
-  const hoverMenuSound = new Audio("./src/assets/sounds/menu_option_hover.mp3");
-  const openSubmenuSound = new Audio("./src/assets/sounds/staple.mp3");
-  const logoSound = new Audio("./src/assets/sounds/pop_bubbles.mp3");
+  const [playOpenSidebarSound] = useSound(
+    "./src/assets/sounds/open_sidebar.mp3"
+  );
+  const [playCloseSidebarSound] = useSound(
+    "./src/assets/sounds/close_sidebar.mp3"
+  );
+  const [playHoverMenuSound, { stop }] = useSound(
+    "./src/assets/sounds/menu_option_hover.mp3"
+  );
+  const [playOpenSubmenuSound] = useSound("./src/assets/sounds/staple.mp3");
+  const [playLogoSound] = useSound("./src/assets/sounds/pop_bubbles.mp3");
 
   const Menus = [
     {
@@ -76,13 +83,13 @@ const Sidebar = () => {
   };
 
   function playSidebarSound() {
-    if (!open) closeSidebarSound.play();
-    else openSidebarSound.play();
+    if (!open) playCloseSidebarSound();
+    else playOpenSidebarSound();
   }
 
   function logoHoverActions() {
     setShowLogoTooltip(true);
-    logoSound.play();
+    playLogoSound();
   }
 
   function logoHoverLeaveActions() {
@@ -91,7 +98,7 @@ const Sidebar = () => {
 
   function searchHoverActions() {
     setShowSearchTooltip(true);
-    if (!open) hoverMenuSound.play();
+    if (!open) playHoverMenuSound();
   }
 
   function searchHoverLeaveActions() {
@@ -101,172 +108,169 @@ const Sidebar = () => {
 
   function optionMenuHoverActions(index: number) {
     setHoveredMenu(index);
-    hoverMenuSound.play();
+    playHoverMenuSound();
   }
 
   function optionMenuHoverLeaveActions() {
     setHoveredMenu(null);
+    stop();
   }
 
   return (
-    <div className="h-full pb-2 fixed flex z-50">
-      {/* Contenedor */}
+    <div
+      className={` ${
+        open ? "w-72" : "w-20 "
+      } bg-cover bg-center h-full p-5 pt-6 fixed duration-300 rounded-lg shadow-lg`}
+      style={{
+        backgroundImage: `url('./src/assets/images/Sidebars/Sidebar1.jpg')`,
+      }}
+    >
+      {/* Logotipo */}
 
-      <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-cover bg-center h-auto p-5 pt-6 relative duration-300 rounded-lg shadow-lg`}
-        style={{
-          backgroundImage: `url('./src/assets/images/Sidebars/Sidebar1.jpg')`,
-        }}
-      >
-        {/* Logotipo */}
-
-        <div className="flex gap-x-4 items-center mb-4">
-          {open ? (
-            // Logotipo en versión extendida
-
-            <img
-              src="./src/assets/icons/logo.png"
-              className={`cursor-pointer duration-150 hover:scale-125 transition-all ${
-                open && "rotate-[360deg]"
-              }`}
-              onClick={() => handleSidebarToggle(true)}
-              onMouseEnter={() => logoHoverActions()}
-              onMouseLeave={() => logoHoverLeaveActions()}
-            />
-          ) : (
-            // Logotipo en versión reducida
-
-            <img
-              src="./src/assets/icons/desplegar.png"
-              className={`cursor-pointer duration-150 hover:scale-125 transition-all ${
-                open && "rotate-[360deg]"
-              }`}
-              onClick={() => handleSidebarToggle(true)}
-              onMouseEnter={() => logoHoverActions()}
-              onMouseLeave={() => logoHoverLeaveActions()}
-            />
-          )}
-
-          {/* Tooltip del logotipo */}
-
-          {!open && showLogoTooltip && (
-            <div className="absolute left-full ml-2 bg-gray-800 font-BookerlyBold text-white text-xs p-2 rounded shadow-lg text-nowrap">
-              Desplegar menú
-            </div>
-          )}
-
-          {open && showLogoTooltip && (
-            <div className="absolute left-full ml-2 bg-white font-BookerlyBold text-gray-800 text-xs p-2 rounded shadow-lg text-nowrap">
-              Retraer menú
-            </div>
-          )}
-
-          {/* Título del sidebar */}
-
-          <h1
-            className={`text-white origin-left font-BookerlyBoldItalic text-lg duration-200 ${
-              !open && "scale-0"
-            }`}
-          >
-            TEMARIO:
-          </h1>
-        </div>
-
-        {/* División #1 */}
-
-        <hr className="my-1 border-sky-800 border" />
-
-        {/* Buscador */}
-
-        <div
-          className={`flex rounded-md py-2 font-BookerlyBold cursor-pointer ${
-            !open && `hover:bg-light-white`
-          }  text-gray-300 text-xs items-center gap-x-4`}
-          onClick={() => handleSidebarToggle(false)}
-          onMouseEnter={() => searchHoverActions()}
-          onMouseLeave={() => searchHoverLeaveActions()}
-        >
-          {/* Icono de búsqueda */}
+      <div className="flex gap-x-4 items-center mb-4">
+        {open ? (
+          // Logotipo en versión extendida
 
           <img
-            src={`./src/assets/icons/Buscar.png`}
-            className="absolute pl-2 z-10 hover:scale-125 transition-all"
-          />
-
-          {/* Input de búsqueda */}
-
-          <input
-            type="text"
-            placeholder="Buscar . . . ."
-            value={searchQuery} // Controlar el valor del input con el estado
-            onChange={(e) => setSearchQuery(e.target.value)} // Actualizar el estado al cambiar el input
-            className={`py-2 pl-10 pr-2 rounded-xl border-2 text-black border-blue-300 focus:bg-slate-100 focus:outline-sky-500 transition-width duration-300 ${
-              open ? "w-full" : "w-0 opacity-0"
+            src="./src/assets/icons/logo.png"
+            className={`cursor-pointer duration-150 hover:scale-125 transition-all ${
+              open && "rotate-[360deg]"
             }`}
+            onClick={() => handleSidebarToggle(true)}
+            onMouseEnter={() => logoHoverActions()}
+            onMouseLeave={() => logoHoverLeaveActions()}
           />
+        ) : (
+          // Logotipo en versión reducida
 
-          {/* Tooltip del campo de búsqueda */}
+          <img
+            src="./src/assets/icons/desplegar.png"
+            className={`cursor-pointer duration-150 hover:scale-125 transition-all ${
+              open && "rotate-[360deg]"
+            }`}
+            onClick={() => handleSidebarToggle(true)}
+            onMouseEnter={() => logoHoverActions()}
+            onMouseLeave={() => logoHoverLeaveActions()}
+          />
+        )}
 
-          {!open && showSearchTooltip && (
-            <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
-              Buscar contenido
-            </div>
-          )}
-        </div>
+        {/* Tooltip del logotipo */}
 
-        {/* División #2 */}
+        {!open && showLogoTooltip && (
+          <div className="absolute left-full ml-2 bg-gray-800 font-BookerlyBold text-white text-xs p-2 rounded shadow-lg text-nowrap">
+            Desplegar menú
+          </div>
+        )}
 
-        <hr className="my-1 border-sky-800 border" />
+        {open && showLogoTooltip && (
+          <div className="absolute left-full ml-2 bg-white font-BookerlyBold text-gray-800 text-xs p-2 rounded shadow-lg text-nowrap">
+            Retraer menú
+          </div>
+        )}
 
-        {/* Menú */}
+        {/* Título del sidebar */}
 
-        <ul>
-          {Menus.map((Menu, index) => (
-            // Contenido general de los elementos del menú
-
-            <li
-              key={index}
-              className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-xs items-center gap-x-4 mt-6 hover:bg-light-white"
-              onMouseEnter={() => optionMenuHoverActions(index)}
-              onMouseLeave={() => optionMenuHoverLeaveActions()}
-              onClick={() => handleSidebarToggle(false)}
-            >
-              {/* Iconos del menú */}
-
-              <img
-                src={`./src/assets/icons/${Menu.src}.png`}
-                className="hover:scale-125 transition-all"
-              />
-
-              {/* Títulos del menú */}
-
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
-
-              {/* Íconos de submenú */}
-
-              {open && Menu.submenu && (
-                <img
-                  src="./src/assets/icons/submenu.png"
-                  className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
-                  onClick={() => openSubmenuSound.play()}
-                />
-              )}
-
-              {/* Tooltips */}
-
-              {!open && hoveredMenu === index && (
-                <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
-                  {Menu.title}
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
+        <h1
+          className={`text-white origin-left font-BookerlyBoldItalic text-lg duration-200 ${
+            !open && "scale-0"
+          }`}
+        >
+          TEMARIO:
+        </h1>
       </div>
+
+      {/* División #1 */}
+
+      <hr className="my-1 border-sky-800 border" />
+
+      {/* Buscador */}
+
+      <div
+        className={`flex rounded-md py-2 font-BookerlyBold cursor-pointer ${
+          !open && `hover:bg-light-white`
+        }  text-gray-300 text-xs items-center gap-x-4`}
+        onClick={() => handleSidebarToggle(false)}
+        onMouseEnter={() => searchHoverActions()}
+        onMouseLeave={() => searchHoverLeaveActions()}
+      >
+        {/* Icono de búsqueda */}
+
+        <img
+          src={`./src/assets/icons/Buscar.png`}
+          className="absolute pl-2 z-10 hover:scale-125 transition-all"
+        />
+
+        {/* Input de búsqueda */}
+
+        <input
+          type="text"
+          placeholder="Buscar . . . ."
+          value={searchQuery} // Controlar el valor del input con el estado
+          onChange={(e) => setSearchQuery(e.target.value)} // Actualizar el estado al cambiar el input
+          className={`py-2 pl-10 pr-2 rounded-xl border-2 text-black border-blue-300 focus:bg-slate-100 focus:outline-sky-500 transition-width duration-300 ${
+            open ? "w-full" : "w-0 opacity-0"
+          }`}
+        />
+
+        {/* Tooltip del campo de búsqueda */}
+
+        {!open && showSearchTooltip && (
+          <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
+            Buscar contenido
+          </div>
+        )}
+      </div>
+
+      {/* División #2 */}
+
+      <hr className="my-1 border-sky-800 border" />
+
+      {/* Menú */}
+
+      <ul>
+        {Menus.map((Menu, index) => (
+          // Contenido general de los elementos del menú
+
+          <li
+            key={index}
+            className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-xs items-center gap-x-4 mt-6 hover:bg-light-white"
+            onMouseEnter={() => optionMenuHoverActions(index)}
+            onMouseLeave={() => optionMenuHoverLeaveActions()}
+            onClick={() => handleSidebarToggle(false)}
+          >
+            {/* Iconos del menú */}
+
+            <img
+              src={`./src/assets/icons/${Menu.src}.png`}
+              className="hover:scale-125 transition-all"
+            />
+
+            {/* Títulos del menú */}
+
+            <span className={`${!open && "hidden"} origin-left duration-200`}>
+              {Menu.title}
+            </span>
+
+            {/* Íconos de submenú */}
+
+            {open && Menu.submenu && (
+              <img
+                src="./src/assets/icons/submenu.png"
+                className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
+                onClick={() => playOpenSubmenuSound()}
+              />
+            )}
+
+            {/* Tooltips */}
+
+            {!open && hoveredMenu === index && (
+              <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
+                {Menu.title}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
