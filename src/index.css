@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ----- AJUSTES PARA IMPORTAR FUENTES ----- */
+
 @font-face {
   font-family: "Regular";
   src: url("Bookerly"), url("fonts/Bookerly.ttf") format("truetype");
@@ -57,4 +59,17 @@
   font-family: "RussSprSh_Italic";
   src: url("Russian Spring Shadow Italic"),
     url("fonts/Russian Spring Shadow Italic.ttf") format("truetype");
+}
+
+/* ----- AJUSTE PARA IMPLEMENTAR EL NO-SCROLLBAR ----- */
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
