@@ -55,10 +55,23 @@ const Sidebar = () => {
         { title: "Preposiciones" },
         { title: "Palabras interrogativas" },
         { title: "Casos gramaticales" },
-        { title: "Verbos" },
+        {
+          title: "Verbos",
+          subsubmenu: [
+            { title: "Verbos de movimiento" },
+            { title: "Verbos adjetivos" },
+          ],
+        },
         { title: "Prefijos y sufijos" },
         { title: "Adverbios" },
         { title: "Conjunciones" },
+        { title: "Partículas" },
+        { title: "Partículas" },
+        { title: "Partículas" },
+        { title: "Partículas" },
+        { title: "Partículas" },
+        { title: "Partículas" },
+        { title: "Partículas" },
         { title: "Partículas" },
       ],
     },
@@ -285,7 +298,7 @@ const Sidebar = () => {
                 {Menu.title}
               </span>
 
-              {/* Íconos de submenú */}
+              {/* Íconos de apertura del menú */}
 
               {open && Menu.submenu && (
                 <img
@@ -306,12 +319,19 @@ const Sidebar = () => {
               {/* Submenus */}
 
               {open && Menu.submenu && activeSubmenu === index && (
-                <ul className="absolute left-full ml-2 inset-y-0 my-auto bg-gray-700 py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[100%] h-fit overflow-y-auto scrollbar-hide border-8 border-gray-700">
+                <ul
+                  className="absolute left-full ml-2 inset-y-0 my-auto bg-gray-700 py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[100%] h-fit overflow-y-auto scrollbar-hide border-8 px-2 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg')`,
+                    borderImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg') 0 0 round`,
+                  }}
+                >
                   {Menu.submenu.map(
                     (submenuItem: { title: string }, subIndex: number) => (
                       <li
                         key={subIndex}
-                        className="p-2 hover:bg-gray-600 rounded"
+                        className="p-2 rounded hover:bg-white hover:bg-opacity-25 flex"
+                        onMouseEnter={() => optionMenuHoverActions(index)}
                       >
                         {submenuItem.title}
                       </li>
