@@ -325,7 +325,7 @@ function Sidebar() {
               {/* PROBLEMAS CON LA PROPIEDAD overflow-y-auto que bloquea el sub-submenu*/}
               {openMenu && activeSubMenu === index && item.subMenu && (
                 <ul
-                  className="absolute left-full ml-2 inset-y-0 my-auto py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[100%] h-fit  scrollbar-hide border-8 px-2 bg-cover bg-center"
+                  className="absolute left-full ml-2 inset-y-0 my-auto py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[100%] h-fit scrollbar-hide border-8 px-2 bg-cover bg-center"
                   style={{
                     backgroundImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg')`,
                     borderImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg') 0 0 round`,

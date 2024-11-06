@@ -4,10 +4,11 @@ import App from "./App.tsx";
 import "./index.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import Prueba from "./components/Prueba.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Sidebar />
+    <Prueba></Prueba>
   </React.StrictMode>
 );
 
