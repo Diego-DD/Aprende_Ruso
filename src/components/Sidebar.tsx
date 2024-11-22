@@ -1,13 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-interface MenuItem {
-  title: string;
-  src?: string;
-  subMenu?: MenuItem[];
-  subSubMenu?: MenuItem[];
-}
-
-const Menu: MenuItem[] = [
+const Menu = [
   { title: "Consideraciones iniciales", src: "Consideraciones" },
   {
     title: "Gramática y léxico",
@@ -18,7 +11,14 @@ const Menu: MenuItem[] = [
       { title: "Número de los sustantivos" },
       { title: "La palabra rusa" },
       { title: "Casos gramaticales (información general)" },
-      { title: "Pronombres" },
+      {
+        title: "Pronombres",
+        subSubMenu: [
+          { title: "Personales" },
+          { title: "Posesivos" },
+          { title: "Irregulares" },
+        ],
+      },
       { title: "Adjetivos" },
       { title: "Preposiciones" },
       { title: "Palabras interrogativas" },
@@ -28,6 +28,18 @@ const Menu: MenuItem[] = [
         subSubMenu: [
           { title: "Verbos de movimiento" },
           { title: "Verbos adjetivos" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
+          { title: "Relleno" },
           { title: "Relleno" },
           { title: "Relleno" },
           { title: "Relleno" },
@@ -76,20 +88,30 @@ const Menu: MenuItem[] = [
 
 function Sidebar() {
   const [openMenu, setOpenMenu] = useState(false);
-  const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
-  const [activeSubSubMenu, setActiveSubSubMenu] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null); // Identificar el submenú abierto
+  const [activeSubSubMenu, setActiveSubSubMenu] = useState<number | null>(null); // Identificar el sub-submenú abierto
   const [showLogoTooltip, setShowLogoTooltip] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [showSearchTooltip, setShowSearchTooltip] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<number | null>(null);
 
   const menuRef = useRef<HTMLDivElement>(null);
+  const subMenuRef = useRef<HTMLUListElement>(null);
+  const subSubMenuRef = useRef<HTMLUListElement>(null);
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node) &&
+        subMenuRef.current &&
+        !subMenuRef.current.contains(e.target as Node) &&
+        subSubMenuRef.current &&
+        !subSubMenuRef.current.contains(e.target as Node)
+      ) {
         setOpenMenu(false);
         if (openMenu) playSidebarSound();
         activeSubMenu && setActiveSubMenu(null); // Cerrar submenús al cerrar el sidebar
+        activeSubSubMenu && setActiveSubSubMenu(null); // Cerrar sub-submenús al cerrar el sidebar
       }
     };
     document.addEventListener("mousedown", handler);
@@ -98,14 +120,26 @@ function Sidebar() {
     };
   });
 
-  const handleMenuClick = (index: number) => {
-    setActiveSubMenu(activeSubMenu === index ? null : index);
-    setActiveSubSubMenu(null); // Cierra sub-submenús al cambiar de submenú
+  const handleMenuClick = (
+    index: number,
+    item: {
+      title: string;
+      src?: string;
+      subMenu?: { title: string; subSubMenu?: { title: string }[] }[];
+    },
+  ) => {
+    setActiveSubMenu(null);
+    setActiveSubSubMenu(null);
+    if (item.subMenu) {
+      setActiveSubMenu(activeSubMenu === index ? null : index);
+    } else {
+      setActiveSubMenu(null);
+    }
     playOpenSelectionSound();
   };
 
   const handleSidebarToggle = (master: boolean) => {
-    if (!openMenu) {
+    if (openMenu) {
       setActiveSubMenu(null); // Cierra submenús al cerrar el sidebar
       setActiveSubSubMenu(null); // Cierra sub-submenús al cerrar el sidebar
     }
@@ -128,7 +162,7 @@ function Sidebar() {
     const sidebarSound = new Audio(
       !openMenu
         ? "./src/assets/sounds/close_sidebar.mp3"
-        : "./src/assets/sounds/open_sidebar.mp3"
+        : "./src/assets/sounds/open_sidebar.mp3",
     );
     sidebarSound.play();
   };
@@ -148,11 +182,15 @@ function Sidebar() {
     openSelectionSound.play();
   };
 
-  const handleSubMenuClick = (index: number) => {
-    setActiveSubSubMenu(activeSubSubMenu === index ? null : index);
+  const handleSubMenuClick = (
+    subIndex: number,
+    subItem: { title: string; subSubMenu?: { title: string }[] },
+  ) => {
+    if (subItem.subSubMenu)
+      setActiveSubSubMenu(activeSubSubMenu === subIndex ? null : subIndex);
+    else setActiveSubSubMenu(null); // Cerrar sub-submenú si no tiene sub-submenú
     playOpenSelectionSound();
   };
-
   const handleLogoHover = () => {
     setShowLogoTooltip(true);
     playIconSound();
@@ -175,15 +213,15 @@ function Sidebar() {
       id="black_filter"
       className={`fixed bg-black ${
         openMenu ? "bg-opacity-75" : "bg-opacity-0"
-      } w-full h-full transition-all duration-300 ease-in-out z-50`}
+      } w-full h-full transition-all duration-300 ease-in-out z-50 flex gap-1`}
     >
-      {/* Menu / Contenedor Principal */}
+      {/* Menú */}
 
       <div
-        id="sidebar"
+        id="menu"
         className={`${
-          openMenu ? "w-72" : "w-20"
-        } bg-cover bg-center transition-all duration-300 ease-in-out rounded-lg absolute h-full p-5 pt-6 ml-1 mt-1 shadow-lg`}
+          !openMenu ? "w-20" : "w-72"
+        } bg-cover bg-center transition-all duration-300 ease-in-out rounded-lg h-full p-5 pt-6 mt-1 ml-1 shadow-lg `}
         style={{
           backgroundImage: `url('./src/assets/images/Sidebars/Sidebar1.jpg')`,
         }}
@@ -191,7 +229,10 @@ function Sidebar() {
       >
         {/* Logotipo */}
 
-        <div id="logo_container" className="flex gap-x-4 items-center mb-4">
+        <div
+          id="logo_container"
+          className="flex gap-x-4 items-center mb-4 relative"
+        >
           {/*Imagen del Logotipo*/}
 
           <img
@@ -213,7 +254,7 @@ function Sidebar() {
 
           {showLogoTooltip && (
             <div
-              className={`absolute left-full ml-2 font-BookerlyBold text-xs p-2 rounded shadow-lg text-nowrap ${
+              className={`absolute left-full ml-7 font-BookerlyBold text-xs p-2 rounded shadow-lg text-nowrap ${
                 openMenu ? "bg-white text-gray-800" : "bg-gray-800 text-white"
               }`}
             >
@@ -243,8 +284,8 @@ function Sidebar() {
           id="search_container"
           className={`flex rounded-md py-2 font-BookerlyBold cursor-pointer ${
             !openMenu && `hover:bg-light-white`
-          }  text-gray-300 text-xs items-center gap-x-4`}
-          onClick={() => setOpenMenu(true)}
+          }  text-gray-300 text-xs items-center gap-x-1 relative`}
+          onClick={() => handleSidebarToggle(false)}
           onMouseEnter={() => handleSearchHover()}
           onMouseLeave={() => setShowSearchTooltip(false)}
         >
@@ -274,7 +315,7 @@ function Sidebar() {
           {!openMenu && showSearchTooltip && (
             <div
               id="search_tooltip"
-              className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap"
+              className="absolute left-full ml-7 font-BookerlyBold text-xs p-2 rounded shadow-lg text-nowrap bg-gray-800 text-white"
             >
               Buscar contenido
             </div>
@@ -285,113 +326,125 @@ function Sidebar() {
 
         <hr id="division_2" className="my-1 border-sky-800 border" />
 
-        {/* Renderizado dinámico del menú */}
+        {/* Menú de opciones */}
 
-        <ul className="mt-4">
-          {Menu.map((item, index) => (
+        {Menu.map((item, index) => (
+          <ul key={index} className="mt-4">
+            {/* REFACTORIZAR EL ON CLICK??? */}
             <li
-              key={index}
-              className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-sm items-center gap-x-4 mt-6 hover:bg-light-white"
-              onClick={() => handleSidebarToggle(false)}
+              className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-sm items-center gap-x-4 mt-6 hover:bg-light-white relative"
+              onClick={() => !openMenu && handleSidebarToggle(false)}
               onMouseEnter={() => handleOptionMenuHover(index)}
               onMouseLeave={() => setHoveredMenu(null)}
             >
-              {/* Iconos del menú */}
+              {/* Íconos del menú */}
+
               <img
                 src={`./src/assets/icons/${item.src}.png`}
                 className="hover:scale-125 transition-all"
               />
+
               {/* Títulos del menú */}
+
               <span
                 className={`${!openMenu && "hidden"} origin-left duration-200`}
               >
                 {item.title}
               </span>
+
               {/* Íconos de apertura del menú */}
+
               {openMenu && item.subMenu && (
                 <img
                   src="./src/assets/icons/submenu.png"
                   className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
-                  onClick={() => handleMenuClick(index)}
+                  onClick={() => handleMenuClick(index, item)}
                 />
               )}
+
               {/* Tooltips */}
+
               {!openMenu && hoveredMenu === index && (
-                <div className="absolute left-full ml-2 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
+                <div className="absolute left-full ml-7 bg-gray-800 text-white text-xs p-2 rounded shadow-lg text-nowrap">
                   {item.title}
                 </div>
               )}
-              {/* Submenú */}
-              {/* PROBLEMAS CON LA PROPIEDAD overflow-y-auto que bloquea el sub-submenu*/}
-              {openMenu && activeSubMenu === index && item.subMenu && (
-                <ul
-                  className="absolute left-full ml-2 inset-y-0 my-auto py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[100%] h-fit scrollbar-hide border-8 px-2 bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg')`,
-                    borderImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg') 0 0 round`,
-                  }}
-                >
-                  {item.subMenu.map((subItem, subIndex) => (
-                    <li
-                      className="p-2 rounded hover:bg-white hover:bg-opacity-25 flex items-center"
-                      key={subIndex}
-                      onMouseEnter={playOptionSound}
-                    >
-                      {/* Títulos del submenú */}
+            </li>
+          </ul>
+        ))}
+      </div>
 
-                      <span
-                        className={`${
-                          !openMenu && "hidden"
-                        } origin-left duration-200`}
-                      >
-                        {subItem.title}
-                      </span>
+      {/* SubMenú */}
 
-                      {/* Íconos de apertura del submenú */}
+      <ul
+        id="subMenu"
+        className={`${
+          activeSubMenu === null ? "w-0 opacity-0 h-fit" : "w-fit"
+        } transition-all duration-300 ease-in-out inset-y-0 my-auto py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[98%] h-fit overflow-y-auto scrollbar-hide border-y-8 px-2 bg-cover bg-center`}
+        style={{
+          backgroundImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg')`,
+          borderImage: `url('./src/assets/images/Sidebars/Sidebar2.jpg') 0 0 round`,
+        }}
+        ref={subMenuRef}
+      >
+        {activeSubMenu !== null &&
+          Menu[activeSubMenu].subMenu &&
+          Menu[activeSubMenu].subMenu.map((subItem, subIndex) => (
+            <li
+              key={subIndex}
+              className="p-2 rounded hover:bg-white hover:bg-opacity-25 flex items-center text-white font-BookerlyBold"
+              onMouseEnter={playOptionSound}
+            >
+              {/* Títulos del submenú */}
 
-                      {openMenu && subItem.subSubMenu && (
-                        <img
-                          src="./src/assets/icons/submenu.png"
-                          className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
-                          onClick={() => handleSubMenuClick(subIndex)}
-                        />
-                      )}
+              <span
+                className={`${!openMenu && "hidden"} origin-left duration-200`}
+              >
+                {subItem.title}
+              </span>
 
-                      {/* Sub-submenú */}
+              {/* Íconos de apertura del submenú */}
 
-                      {activeSubMenu &&
-                        activeSubSubMenu === subIndex &&
-                        subItem.subSubMenu && (
-                          <ul
-                            className="absolute left-full ml-4 inset-y-0 my-auto py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[100%] h-fit scrollbar-hide border-8 px-2 bg-cover bg-center"
-                            style={{
-                              backgroundImage: `url('./src/assets/images/Sidebars/Sidebar3.jpg')`,
-                              borderImage: `url('./src/assets/images/Sidebars/Sidebar3.jpg') 0 0 round`,
-                            }}
-                          >
-                            {subItem.subSubMenu.map(
-                              (subSubItem, subSubIndex) => (
-                                <li
-                                  className="p-2 rounded hover:bg-white hover:bg-opacity-25 flex items-center"
-                                  key={subSubIndex}
-                                  onMouseEnter={playOptionSound}
-                                >
-                                  <span className="text-white">
-                                    {subSubItem.title}
-                                  </span>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        )}
-                    </li>
-                  ))}
-                </ul>
+              {openMenu && subItem.subSubMenu && (
+                <img
+                  src="./src/assets/icons/submenu.png"
+                  className="w-7 ml-auto hover:scale-125 transition-all hover:bg-slate-500 rounded-full"
+                  onClick={() => handleSubMenuClick(subIndex, subItem)}
+                />
               )}
             </li>
           ))}
-        </ul>
-      </div>
+      </ul>
+
+      {/* SubSubMenú */}
+
+      <ul
+        id="subSubMenu"
+        className={`${
+          activeSubSubMenu === null ? "w-0 opacity-0 h-fit" : "w-fit"
+        } transition-all duration-300 ease-in-out inset-y-0 my-auto py-2 rounded-xl shadow-lg text-sm text-nowrap max-h-[96%] h-fit overflow-y-auto scrollbar-hide border-y-8 px-2 bg-cover bg-center`}
+        style={{
+          backgroundImage: `url('./src/assets/images/Sidebars/Sidebar3.jpg')`,
+          borderImage: `url('./src/assets/images/Sidebars/Sidebar3.jpg') 0 0 round`,
+        }}
+        ref={subSubMenuRef}
+      >
+        {activeSubMenu !== null &&
+          activeSubSubMenu !== null &&
+          Menu[activeSubMenu].subMenu &&
+          Menu[activeSubMenu].subMenu[activeSubSubMenu].subSubMenu &&
+          Menu[activeSubMenu].subMenu[activeSubSubMenu].subSubMenu.map(
+            (subSubItem, subSubIndex) => (
+              <li
+                className="p-2 rounded hover:bg-white hover:bg-opacity-25 flex items-center text-white font-BookerlyBold"
+                key={subSubIndex}
+                onMouseEnter={playOptionSound}
+              >
+                <span className="text-white">{subSubItem.title}</span>
+              </li>
+            ),
+          )}
+      </ul>
     </div>
   );
 }

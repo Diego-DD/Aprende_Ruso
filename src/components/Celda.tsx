@@ -12,7 +12,7 @@ function Celda({ texto = "", className, texto_2 = "", mitad = 0 }: CeldaProps) {
     <div
       className={cn(
         "w-full h-full content-center text-center font-BookerlyBold bg-white border-solid border-x border-y border-t-white border-b-white border-r-white border-l-white",
-        className
+        className,
       )}
     >
       {mitad === 0 && <p className="px-1">{texto}</p>}

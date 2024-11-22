@@ -6,58 +6,71 @@
 
 @font-face {
   font-family: "Regular";
-  src: url("Bookerly"), url("fonts/Bookerly.ttf") format("truetype");
+  src:
+    url("Bookerly"),
+    url("fonts/Bookerly.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Italic";
-  src: url("Bookerly Italic"),
+  src:
+    url("Bookerly Italic"),
     url("fonts/Bookerly Italic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Bold";
-  src: url("Bookerly Bold"), url("fonts/Bookerly Bold.ttf") format("truetype");
+  src:
+    url("Bookerly Bold"),
+    url("fonts/Bookerly Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "BoldItalic";
-  src: url("Bookerly Bold Italic"),
+  src:
+    url("Bookerly Bold Italic"),
     url("fonts/Bookerly Bold Italic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "RussSpr_Regular";
-  src: url("Russian Spring"), url("fonts/Russian Spring.ttf") format("truetype");
+  src:
+    url("Russian Spring"),
+    url("fonts/Russian Spring.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "RussSpr_Italic";
-  src: url("Russian Spring Italic"),
+  src:
+    url("Russian Spring Italic"),
     url("fonts/Russian Spring Italic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "RussSpr_Bold";
-  src: url("Russian Spring Bold"),
+  src:
+    url("Russian Spring Bold"),
     url("fonts/Russian Spring Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "RussSpr_BoldItalic";
-  src: url("Russian Spring BoldItalic"),
+  src:
+    url("Russian Spring BoldItalic"),
     url("fonts/Russian Spring BoldItalic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "RussSprSh_Regular";
-  src: url("Russian Spring Shadow"),
+  src:
+    url("Russian Spring Shadow"),
     url("fonts/Russian Spring Shadow.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "RussSprSh_Italic";
-  src: url("Russian Spring Shadow Italic"),
+  src:
+    url("Russian Spring Shadow Italic"),
     url("fonts/Russian Spring Shadow Italic.ttf") format("truetype");
 }
 
