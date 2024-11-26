@@ -4,7 +4,7 @@ interface HeaderProps {
 
 function Header({ titulo = "APRENDE RUSO" }: HeaderProps) {
   return (
-    <div className="w-full mt-1 z-10">
+    <div className="w-full mt-1 z-0">
       {/* Cuerpo e imagen del header */}
 
       <header

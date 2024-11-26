@@ -94,6 +94,7 @@ function Sidebar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchTooltip, setShowSearchTooltip] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<number | null>(null);
+  const [focusPriority, setFocusPriority] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const subMenuRef = useRef<HTMLUListElement>(null);
@@ -109,6 +110,7 @@ function Sidebar() {
         !subSubMenuRef.current.contains(e.target as Node)
       ) {
         setOpenMenu(false);
+        setFocusPriority(false);
         if (openMenu) playSidebarSound();
         activeSubMenu && setActiveSubMenu(null); // Cerrar submenús al cerrar el sidebar
         activeSubSubMenu && setActiveSubSubMenu(null); // Cerrar sub-submenús al cerrar el sidebar
@@ -213,7 +215,7 @@ function Sidebar() {
       id="black_filter"
       className={`fixed bg-black ${
         openMenu ? "bg-opacity-75" : "bg-opacity-0"
-      } w-full h-full transition-all duration-300 ease-in-out z-50 flex gap-1`}
+      } w-full h-full transition-all duration-300 ease-in-out flex gap-1 ${focusPriority ? "z-20" : "z-10"}`}
     >
       {/* Menú */}
 
@@ -226,6 +228,8 @@ function Sidebar() {
           backgroundImage: `url('./src/assets/images/Sidebars/Sidebar1.jpg')`,
         }}
         ref={menuRef}
+        onMouseEnter={() => setFocusPriority(true)}
+        onMouseLeave={() => !openMenu && setFocusPriority(false)}
       >
         {/* Logotipo */}
 
@@ -330,7 +334,6 @@ function Sidebar() {
 
         {Menu.map((item, index) => (
           <ul key={index} className="mt-4">
-            {/* REFACTORIZAR EL ON CLICK??? */}
             <li
               className="group flex rounded-md p-2 font-BookerlyBold cursor-pointer text-white text-sm items-center gap-x-4 mt-6 hover:bg-light-white relative"
               onClick={() => !openMenu && handleSidebarToggle(false)}

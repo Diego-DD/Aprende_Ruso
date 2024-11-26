@@ -237,6 +237,9 @@ export default {
         "dark-purple": "#081A51",
         "light-white": "rgba(255, 255, 255, 0.17)",
       },
+      spacing: {
+        112: "28.8rem",
+      },
     },
   },
   plugins: [],

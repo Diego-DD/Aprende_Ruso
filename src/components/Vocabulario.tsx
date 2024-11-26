@@ -2,7 +2,7 @@ import Celda from "./Celda";
 
 function Vocabulario() {
   return (
-    <div className="bg-white h-auto w-32 text-center text-white rounded-3xl border-gray-400 border-2 m-2">
+    <div className="bg-white h-auto w-32 text-center text-white rounded-3xl border-gray-400 border-2">
       <div className="h-auto w-auto rounded-t-3xl border-none items-center justify-center flex p-2">
         <div className="bg-white h-full w-fit rounded-3xl">
           <img
