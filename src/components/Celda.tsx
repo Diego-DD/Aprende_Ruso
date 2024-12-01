@@ -5,15 +5,23 @@ interface CeldaProps {
   className?: string;
   texto_2?: string;
   mitad?: number;
+  lang?: string;
 }
 //Responsive text-base smtext-lg mdtext-xl lgtext-2xl xltext-3xl
-function Celda({ texto = "", className, texto_2 = "", mitad = 0 }: CeldaProps) {
+function Celda({
+  texto = "",
+  className,
+  texto_2 = "",
+  mitad = 0,
+  lang = "es",
+}: CeldaProps) {
   return (
     <div
       className={cn(
-        "w-full h-full content-center text-center font-BookerlyBold bg-white border-solid border-x border-y border-t-white border-b-white border-r-white border-l-white",
+        "w-full h-full content-center text-center font-BookerlyBold bg-white border-solid border-x border-y border-t-white border-b-white border-r-white border-l-white break-words hyphens-auto",
         className,
       )}
+      lang={lang}
     >
       {mitad === 0 && <p className="px-1">{texto}</p>}
       {mitad != 0 && (

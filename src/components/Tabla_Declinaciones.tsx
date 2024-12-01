@@ -1,19 +1,38 @@
-/*
-Uso del componente Tabla_Declinaciones:
-import Tabla_Declinaciones from "./components/Tabla_Declinaciones";   // Componente
-import * as Datos from "./data/index";                                // Datos JSON
-
-<Tabla_Declinaciones datos={Datos.Tabla_0}/>
-*/
-
 import Celda from "./Celda";
+
+// Definición de los géneros y números principales.
+
+interface Generos_Numero {
+  masc: string;
+  fem: string;
+  neu: string;
+  plu: string;
+}
+
+// Definición de la estructura del caso acusativo.
+
+interface Acusativo {
+  an: Generos_Numero;
+  in: Generos_Numero;
+}
+
+// Definición de la estructura general para los casos.
+
+interface Casos {
+  nom: Generos_Numero;
+  gen: Generos_Numero;
+  dat: Generos_Numero;
+  acu: Acusativo; // Estructura especial para el acusativo
+  inst: Generos_Numero;
+  prep: Generos_Numero;
+}
 
 interface Tabla_DeclinacionesProps {
   tipo?: number; // Tipo de tabla: 0, 1 o 2
   casos?: boolean; // Mostrar la columna de casos.
   titulo?: string; // Agregar título a la tabla.
   color_titulo?: string; // Color de fondo del título.
-  datos?: unknown; // JSON con los datos de la tabla.
+  datos?: Casos; // JSON con los datos de la tabla.
 }
 
 function Tabla_Declinaciones({
@@ -21,307 +40,200 @@ function Tabla_Declinaciones({
   casos = true,
   titulo = "",
   color_titulo = "bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95%",
-  datos = "",
+  datos = {
+    nom: { masc: "", fem: "", neu: "", plu: "" },
+    gen: { masc: "", fem: "", neu: "", plu: "" },
+    dat: { masc: "", fem: "", neu: "", plu: "" },
+    acu: {
+      an: { masc: "", fem: "", neu: "", plu: "" },
+      in: { masc: "", fem: "", neu: "", plu: "" },
+    },
+    inst: { masc: "", fem: "", neu: "", plu: "" },
+    prep: { masc: "", fem: "", neu: "", plu: "" },
+  },
 }: Tabla_DeclinacionesProps) {
-  // Variables de control de estilos en la tabla.
-
   const fuente_titulo = "font-BookerlyBold text-lg text-white";
-  const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% rounded-tl-3xl ${fuente_titulo}`;
-  const singular = `col-span-3 bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% ${fuente_titulo}`;
-  const masculino = `bg-gradient-to-b from-masculino-primario-claro from-5% via-masculino-primario-base to-masculino-primario-oscuro to-95% ${fuente_titulo}`;
-  const femenino = `bg-gradient-to-b from-femenino-primario-claro from-5% via-femenino-primario-base to-femenino-primario-oscuro to-95% ${fuente_titulo}`;
-  const neutro = `bg-gradient-to-b from-neutro-primario-claro from-5% via-neutro-primario-base to-neutro-primario-oscuro to-95% ${fuente_titulo}`;
-  const plural = `bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% rounded-tr-3xl ${fuente_titulo}`;
-  const nominativo = `bg-gradient-to-b from-nominativo-primario-claro from-5% via-nominativo-primario-base to-nominativo-primario-oscuro to-95% ${fuente_titulo}`;
-  const genitivo = `bg-gradient-to-b from-genitivo-primario-claro from-5% via-genitivo-primario-base to-genitivo-primario-oscuro to-95% ${fuente_titulo}`;
-  const dativo = `bg-gradient-to-b from-dativo-primario-claro from-5% via-dativo-primario-base to-dativo-primario-oscuro to-95% ${fuente_titulo}`;
-  const acusativo = `bg-gradient-to-b from-acusativo-primario-claro from-5% via-acusativo-primario-base to-acusativo-primario-oscuro to-95% font-BookerlyBold text-sm text-white`;
-  const animado = `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`;
-  const inanimado = `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`;
-  const instrumental = `bg-gradient-to-b from-instrumental-primario-claro from-5% via-instrumental-primario-base to-instrumental-primario-oscuro to-95% ${fuente_titulo}`;
-  const preposicional = `bg-gradient-to-b from-preposicional-primario-claro from-5% via-preposicional-primario-base to-preposicional-primario-oscuro to-95% rounded-bl-3xl ${fuente_titulo}`;
-  const cuerpo_masculino = `bg-masculino-secundario-base`;
-  const cuerpo_femenino = `bg-femenino-secundario-base`;
-  const cuerpo_neutro = `bg-neutro-secundario-base`;
-  const cuerpo_plural = `bg-plural-secundario-base`;
-
-  // Conversión del JSON entrante a objeto.
-
-  let obj = null;
-  if (datos != "") {
-    obj = JSON.parse(JSON.stringify(datos));
-  }
+  const caso_genero = `row-span-2 bg-gradient-to-b from-verbos-primario-claro from-5% via-verbos-primario-base to-verbos-primario-oscuro to-95% ${!titulo && "rounded-tl-3xl"} ${fuente_titulo}`;
+  const numero: { [key: string]: string } = {
+    singular: `col-span-3 bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% ${fuente_titulo}`,
+    plural: `row-span-2 bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% ${!titulo && "rounded-tr-3xl"} ${fuente_titulo}`,
+  };
+  const genero: { [key: string]: string } = {
+    masculino: `bg-gradient-to-b from-masculino-primario-claro from-5% via-masculino-primario-base to-masculino-primario-oscuro to-95% ${fuente_titulo}`,
+    femenino: `bg-gradient-to-b from-femenino-primario-claro from-5% via-femenino-primario-base to-femenino-primario-oscuro to-95% ${fuente_titulo}`,
+    neutro: `bg-gradient-to-b from-neutro-primario-claro from-5% via-neutro-primario-base to-neutro-primario-oscuro to-95% ${fuente_titulo}`,
+  };
+  const caso: { [key: string]: string } = {
+    nominativo: `bg-gradient-to-b from-nominativo-primario-claro from-5% via-nominativo-primario-base to-nominativo-primario-oscuro to-95% ${fuente_titulo}`,
+    genitivo: `bg-gradient-to-b from-genitivo-primario-claro from-5% via-genitivo-primario-base to-genitivo-primario-oscuro to-95% ${fuente_titulo}`,
+    dativo: `bg-gradient-to-b from-dativo-primario-claro from-5% via-dativo-primario-base to-dativo-primario-oscuro to-95% ${fuente_titulo}`,
+    acusativo: `bg-gradient-to-b from-acusativo-primario-claro from-5% via-acusativo-primario-base to-acusativo-primario-oscuro to-95% font-BookerlyBold text-sm text-white`,
+    acusativo_animado: `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`,
+    acusativo_inanimado: `bg-gradient-to-b from-acusativo-secundario-claro from-5% via-acusativo-secundario-base to-acusativo-secundario-oscuro to-95% font-BookerlyBold text-sm text-white`,
+    instrumental: `bg-gradient-to-b from-instrumental-primario-claro from-5% via-instrumental-primario-base to-instrumental-primario-oscuro to-95% ${fuente_titulo}`,
+    preposicional: `bg-gradient-to-b from-preposicional-primario-claro from-5% via-preposicional-primario-base to-preposicional-primario-oscuro to-95% rounded-bl-3xl ${fuente_titulo}`,
+  };
+  const lightened: { [key: string]: string } = {
+    masculino: `bg-masculino-secundario-base`,
+    femenino: `bg-femenino-secundario-base`,
+    neutro: `bg-neutro-secundario-base`,
+    plural: `bg-plural-secundario-base`,
+  };
 
   return (
     <div
-      className={`w-full h-full grid ${casos ? "grid-cols-5" : "grid-cols-4"} `}
+      className={`w-full h-full grid ${casos ? "grid-cols-5" : "grid-cols-4"}`}
     >
-      {/* Encabezado */}
+      {/* Título opcional de la tabla */}
 
-      {titulo != "" && (
-        <Celda
-          texto={titulo}
-          className={`${
-            casos ? "col-span-5" : "col-span-4"
-          } ${fuente_titulo} ${color_titulo}`}
-        />
-      )}
-
-      {/* Casos y Géneros */}
-
-      {casos && <Celda texto="Caso / Género" className={caso_genero} />}
-      <Celda texto="Singular" className={singular} />
       <Celda
-        texto="Plurales"
-        className={`row-span-2 ` + plural}
+        className={`${color_titulo} ${fuente_titulo} ${
+          casos ? "col-span-5" : "col-span-4"
+        } rounded-tl-3xl rounded-tr-3xl ${!titulo && "hidden"}`}
+        texto={titulo}
+      ></Celda>
+
+      {/* Esquina de la tabla */}
+
+      <Celda
+        className={`${caso_genero} ${!casos && "hidden"}`}
+        texto="Caso / Género"
+      />
+
+      {/* Encabezado de géneros y número */}
+
+      <Celda
+        className={`${numero["singular"]} ${!casos && !titulo && "rounded-tl-3xl"}`}
+        texto="Singular"
+      />
+      <Celda
+        className={numero["plural"]}
+        texto="Plural"
         texto_2="(Todos los géneros)"
       />
-      <Celda texto="Masculino" className={masculino} />
-      <Celda texto="Femenino" className={femenino} />
-      <Celda texto="Neutro" className={neutro} />
+      <Celda className={genero["masculino"]} texto="Masculino" />
+      <Celda className={genero["femenino"]} texto="Femenino" />
+      <Celda className={genero["neutro"]} texto="Neutro" />
 
-      {/* Nominativo */}
+      {/* Fila del caso nominativo */}
 
-      {casos && <Celda texto="Nominativo" className={nominativo} />}
       <Celda
-        texto={datos != "" ? obj.nm.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.nm.mitad : 0}
+        className={`${caso["nominativo"]} ${!casos && "hidden"}`}
+        texto="Nominativo"
+      />
+      <Celda className={lightened["masculino"]} texto={datos.nom.masc} />
+      <Celda className={lightened["femenino"]} texto={datos.nom.fem} />
+      <Celda className={lightened["neutro"]} texto={datos.nom.neu} />
+      <Celda className={lightened["plural"]} texto={datos.nom.plu} />
+
+      {/* Fila del caso genitivo */}
+
+      <Celda
+        className={`${caso["genitivo"]} ${!casos && "hidden"}`}
+        texto="Genitivo"
+      />
+      <Celda className={lightened["masculino"]} texto={datos.gen.masc} />
+      <Celda
+        className={`${lightened["femenino"]} ${tipo == 1 && "row-span-2"}`}
+        texto={datos.gen.fem}
       />
       <Celda
-        texto={datos != "" ? obj.nf.texto : ""}
-        className={cuerpo_femenino}
-        mitad={datos != "" ? obj.nf.mitad : 0}
+        className={`${lightened["neutro"]} ${tipo == 2 && "row-span-2"}`}
+        texto={datos.gen.neu}
+      />
+      <Celda className={lightened["plural"]} texto={datos.gen.plu} />
+
+      {/* Fila del caso dativo */}
+
+      <Celda
+        className={`${caso["dativo"]} ${!casos && "hidden"}`}
+        texto="Dativo"
+      />
+      <Celda className={lightened["masculino"]} texto={datos.dat.masc} />
+      <Celda
+        className={`${lightened["femenino"]} ${!(tipo == 0 || tipo == 2) && "hidden"}`}
+        texto={datos.dat.fem}
       />
       <Celda
-        texto={datos != "" ? obj.nn.texto : ""}
-        className={cuerpo_neutro}
-        mitad={datos != "" ? obj.nn.mitad : 0}
+        className={`${lightened["neutro"]} ${!(tipo == 0 || tipo == 1) && "hidden"}`}
+        texto={datos.dat.neu}
       />
-      <Celda
-        texto={datos != "" ? obj.np.texto : ""}
-        className={cuerpo_plural}
-        mitad={datos != "" ? obj.np.mitad : 0}
-      />
+      <Celda className={lightened["plural"]} texto={datos.dat.plu} />
 
-      {/* Genitivo */}
+      {/* Fila del caso acusativo */}
 
-      {casos && <Celda texto="Genitivo" className={genitivo} />}
-      <Celda
-        texto={datos != "" ? obj.gm.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.gm.mitad : 0}
-      />
-      {(tipo === 0 || tipo === 2) && (
-        <Celda
-          texto={datos != "" ? obj.gf.texto : ""}
-          className={cuerpo_femenino}
-          mitad={datos != "" ? obj.gf.mitad : 0}
-        />
-      )}
-      {tipo === 1 && (
-        <Celda
-          texto={datos != "" ? obj.gdf.texto : ""}
-          className={`row-span-2 ` + cuerpo_femenino}
-          mitad={datos != "" ? obj.gdf.mitad : 0}
-        />
-      )}
-      {(tipo === 0 || tipo === 1) && (
-        <Celda
-          texto={datos != "" ? obj.gn.texto : ""}
-          className={cuerpo_neutro}
-          mitad={datos != "" ? obj.gn.mitad : 0}
-        />
-      )}
-      {tipo === 2 && (
-        <Celda
-          texto={datos != "" ? obj.gdn.texto : ""}
-          className={`row-span-2 ` + cuerpo_neutro}
-          mitad={datos != "" ? obj.gdn.mitad : 0}
-        />
-      )}
-      <Celda
-        texto={datos != "" ? obj.gp.texto : ""}
-        className={cuerpo_plural}
-        mitad={datos != "" ? obj.gp.mitad : 0}
-      />
-
-      {/* Dativo */}
-
-      {casos && <Celda texto="Dativo" className={dativo} />}
-      <Celda
-        texto={datos != "" ? obj.dm.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.dm.mitad : 0}
-      />
-      {(tipo === 0 || tipo === 2) && (
-        <Celda
-          texto={datos != "" ? obj.df.texto : ""}
-          className={cuerpo_femenino}
-          mitad={datos != "" ? obj.df.mitad : 0}
-        />
-      )}
-      {(tipo === 0 || tipo === 1) && (
-        <Celda
-          texto={datos != "" ? obj.dn.texto : ""}
-          className={cuerpo_neutro}
-          mitad={datos != "" ? obj.dn.mitad : 0}
-        />
-      )}
-      <Celda
-        texto={datos != "" ? obj.dp.texto : ""}
-        className={cuerpo_plural}
-        mitad={datos != "" ? obj.dp.mitad : 0}
-      />
-
-      {/* Acusativo */}
-
-      {casos && (
-        <div className="row-span-2 grid grid-cols-2">
-          <Celda texto="Acusativo" className={acusativo} />
-          <div className="grid grid-rows-2">
-            <Celda texto="Animnado" className={animado} />
-            <Celda texto="Inanimado" className={inanimado} />
-          </div>
+      <div className={`row-span-2 grid grid-cols-2 ${!casos && "hidden"}`}>
+        <Celda className={caso["acusativo"]} texto="Acusativo" />
+        <div className="grid grid-rows-2">
+          <Celda className={caso["acusativo_animado"]} texto="Animado" />
+          <Celda className={caso["acusativo_inanimado"]} texto="Inanimado" />
         </div>
-      )}
+      </div>
 
-      {/* Acusativo animado */}
+      {/* Fila del caso acusativo animado */}
 
+      <Celda className={lightened["masculino"]} texto={datos.acu.an.masc} />
       <Celda
-        texto={datos != "" ? obj.aam.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.aam.mitad : 0}
+        className={`${lightened["femenino"]} ${(tipo == 1 || tipo == 2) && "row-span-2"}`}
+        texto={datos.acu.an.fem}
       />
-      {tipo === 0 && (
-        <Celda
-          texto={datos != "" ? obj.aaf.texto : ""}
-          className={cuerpo_femenino}
-          mitad={datos != "" ? obj.aaf.mitad : 0}
-        />
-      )}
-      {(tipo === 1 || tipo === 2) && (
-        <Celda
-          texto={datos != "" ? obj.af.texto : ""}
-          className={`row-span-2 ` + cuerpo_femenino}
-          mitad={datos != "" ? obj.af.mitad : 0}
-        />
-      )}
-      {tipo === 0 && (
-        <Celda
-          texto={datos != "" ? obj.aan.texto : ""}
-          className={cuerpo_neutro}
-          mitad={datos != "" ? obj.aan.mitad : 0}
-        />
-      )}
-      {(tipo === 1 || tipo === 2) && (
-        <Celda
-          texto={datos != "" ? obj.an.texto : ""}
-          className={`row-span-2 ` + cuerpo_neutro}
-          mitad={datos != "" ? obj.an.mitad : 0}
-        />
-      )}
       <Celda
-        texto={datos != "" ? obj.aap.texto : ""}
-        className={cuerpo_plural}
-        mitad={datos != "" ? obj.aap.mitad : 0}
+        className={`${lightened["neutro"]} ${(tipo == 1 || tipo == 2) && "row-span-2"}`}
+        texto={datos.acu.an.neu}
       />
+      <Celda className={lightened["plural"]} texto={datos.acu.an.plu} />
 
-      {/* Acusativo inanimado */}
+      {/* Fila del caso acusativo inanimado */}
+
+      <Celda className={lightened["masculino"]} texto={datos.acu.in.masc} />
+      <Celda
+        className={`${lightened["femenino"]} ${tipo != 0 && "hidden"}`}
+        texto={datos.acu.in.fem}
+      />
+      <Celda
+        className={`${lightened["neutro"]} ${tipo != 0 && "hidden"}`}
+        texto={datos.acu.in.neu}
+      />
+      <Celda className={lightened["plural"]} texto={datos.acu.in.plu} />
+
+      {/* Fila del caso instrumental */}
 
       <Celda
-        texto={datos != "" ? obj.aim.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.aim.mitad : 0}
+        className={`${caso["instrumental"]} ${!casos && "hidden"}`}
+        texto="Instrumental"
       />
-      {tipo === 0 && (
-        <Celda
-          texto={datos != "" ? obj.aif.texto : ""}
-          className={cuerpo_femenino}
-          mitad={datos != "" ? obj.aif.mitad : 0}
-        />
-      )}
-      {tipo === 0 && (
-        <Celda
-          texto={datos != "" ? obj.ain.texto : ""}
-          className={cuerpo_neutro}
-          mitad={datos != "" ? obj.ain.mitad : 0}
-        />
-      )}
+      <Celda className={lightened["masculino"]} texto={datos.inst.masc} />
       <Celda
-        texto={datos != "" ? obj.aip.texto : ""}
-        className={cuerpo_plural}
-        mitad={datos != "" ? obj.aip.mitad : 0}
+        className={`${lightened["femenino"]} ${tipo == 1 && "row-span-2"}`}
+        texto={datos.inst.fem}
       />
+      <Celda
+        className={`${lightened["neutro"]} ${tipo == 2 && "row-span-2"}`}
+        texto={datos.inst.neu}
+      />
+      <Celda className={lightened["plural"]} texto={datos.inst.plu} />
 
-      {/* Instrumental */}
+      {/* Fila del caso preposicional */}
 
-      {casos && <Celda texto="Instrumental" className={instrumental} />}
       <Celda
-        texto={datos != "" ? obj.im.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.im.mitad : 0}
+        className={`${caso["preposicional"]} ${!casos && "hidden"}`}
+        texto="Preposicional"
       />
-      {(tipo === 0 || tipo === 2) && (
-        <Celda
-          texto={datos != "" ? obj.if.texto : ""}
-          className={cuerpo_femenino}
-          mitad={datos != "" ? obj.if.mitad : 0}
-        />
-      )}
-      {tipo === 1 && (
-        <Celda
-          texto={datos != "" ? obj.ipf.texto : ""}
-          className={`row-span-2 ` + cuerpo_femenino}
-          mitad={datos != "" ? obj.ipf.mitad : 0}
-        />
-      )}
-      {(tipo === 0 || tipo === 1) && (
-        <Celda
-          texto={datos != "" ? obj.in.texto : ""}
-          className={cuerpo_neutro}
-          mitad={datos != "" ? obj.in.mitad : 0}
-        />
-      )}
-      {tipo === 2 && (
-        <Celda
-          texto={datos != "" ? obj.ipn.texto : ""}
-          className={`row-span-2 ` + cuerpo_neutro}
-          mitad={datos != "" ? obj.ipn.mitad : 0}
-        />
-      )}
       <Celda
-        texto={datos != "" ? obj.ip.texto : ""}
-        className={cuerpo_plural}
-        mitad={datos != "" ? obj.ip.mitad : 0}
+        className={`${lightened["masculino"]} ${!casos && "rounded-bl-3xl"}`}
+        texto={datos.prep.masc}
       />
-
-      {/* Preposicional */}
-
-      {casos && <Celda texto="Preposicional" className={preposicional} />}
       <Celda
-        texto={datos != "" ? obj.pm.texto : ""}
-        className={cuerpo_masculino}
-        mitad={datos != "" ? obj.pm.mitad : 0}
+        className={`${lightened["femenino"]} ${!(tipo == 0 || tipo == 2) && "hidden"}`}
+        texto={datos.prep.fem}
       />
-      {(tipo === 0 || tipo === 2) && (
-        <Celda
-          texto={datos != "" ? obj.pf.texto : ""}
-          className={cuerpo_femenino}
-          mitad={datos != "" ? obj.pf.mitad : 0}
-        />
-      )}
-      {(tipo === 0 || tipo === 1) && (
-        <Celda
-          texto={datos != "" ? obj.pn.texto : ""}
-          className={cuerpo_neutro}
-          mitad={datos != "" ? obj.pn.mitad : 0}
-        />
-      )}
       <Celda
-        texto={datos != "" ? obj.pp.texto : ""}
-        className={cuerpo_plural + " rounded-br-3xl"}
-        mitad={datos != "" ? obj.pp.mitad : 0}
+        className={`${lightened["neutro"]} ${!(tipo == 0 || tipo == 1) && "hidden"}`}
+        texto={datos.prep.neu}
+      />
+      <Celda
+        className={`${lightened["plural"]} rounded-br-3xl`}
+        texto={datos.prep.plu}
       />
     </div>
   );

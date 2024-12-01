@@ -62,6 +62,19 @@ interface Vocabutary_Data {
 function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
   const num_variants = data.variants.length;
 
+  const num_cols: { [key: number]: string } = {
+    1: "grid-cols-1",
+    2: "grid-cols-2",
+    3: "grid-cols-3",
+    4: "grid-cols-4",
+  };
+
+  const num_col_span: { [key: number]: string } = {
+    2: "col-span-2",
+    3: "col-span-3",
+    4: "col-span-4",
+  };
+
   const playButtonSound = () => {
     const optionSound = new Audio("./src/assets/sounds/game_bleep.mp3");
     optionSound.play();
@@ -79,7 +92,7 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
   const Title = () => {
     return (
       <div
-        className={`grid grid-cols-${num_variants} w-full place-items-center gap-2`}
+        className={`grid ${num_cols[num_variants]} w-full place-items-center gap-2`}
       >
         {data.variants.map((variant, index) => (
           <div key={index} className="w-full h-full mb-2">
@@ -119,21 +132,18 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
       </button>
     ) : (
       <Celda
-        className="bg-red-600 text-white text-xs border-none w-fit px-1 col-span-2 rounded mb-1"
+        className="bg-red-600 text-white text-xs border-none w-fit h-max px-4 col-span-2 rounded mb-1"
         texto="INDLECLINABLE"
       />
     );
   };
 
   const WordRow = ({ word }: { word: Words }) => {
-    const getGenderClass = (gender: number): string => {
-      const classes: { [key: number]: string } = {
-        0: "bg-white",
-        1: "bg-masculino-primario-claro",
-        2: "bg-femenino-primario-claro",
-        3: "bg-neutro-primario-claro",
-      };
-      return classes[gender];
+    const classes: { [key: number]: string } = {
+      0: "bg-white",
+      1: "bg-masculino-primario-claro",
+      2: "bg-femenino-primario-claro",
+      3: "bg-neutro-primario-claro",
     };
 
     let singular = word.declinations.nominative.singular.word;
@@ -150,12 +160,14 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
     return (
       <div className="grid grid-cols-2 gap-1 place-items-center">
         <Celda
-          className={`${getGenderClass(word.gender)} border-none text-sm rounded ${singular_unnused && "text-orange-700"}`}
+          className={`${classes[word.gender]} border-none text-sm rounded ${singular_unnused && "text-orange-700"}`}
           texto={singular}
+          lang="ru"
         />
         <Celda
           className={`border-none text-sm rounded ${plural_unnused && "text-orange-700"}`}
           texto={plural}
+          lang="ru"
         />
         <ActionButton declinable={word.declinable} />
       </div>
@@ -168,7 +180,7 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
     return (
       <div
         id="tlables_space"
-        className={`grid grid-cols-${num_variants} w-full place-items-center gap-2`}
+        className={`grid ${num_cols[num_variants]} w-full place-items-center gap-2`}
       >
         {data.variants.map((variant, index) => (
           <div key={index} className="w-full">
@@ -186,7 +198,7 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
   };
   return (
     <div
-      className={`bg-white border-2 border-gray-400 rounded-3xl overflow-hidden ${num_variants == 1 ? "w-56" : "w-112"} h-full place-items-center p-2 place-content-center flex flex-col justify-evenly col-span-${num_variants}`}
+      className={`bg-white border-2 border-gray-400 rounded-3xl overflow-hidden ${num_variants > 1 && num_col_span[num_variants]} w-full h-full place-items-center p-2 place-content-center flex flex-col justify-evenly`}
     >
       <Image />
       <Title />
