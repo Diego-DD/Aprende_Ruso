@@ -58,6 +58,10 @@ export default function Tabla_Declinaciones_Test() {
         casos={false}
       />
       <Tabla_Declinaciones datos={datos} casos={false} />
+      <div className="flex">
+        <Tabla_Declinaciones datos={datos} tipo={0} />
+        <Tabla_Declinaciones datos={datos} tipo={0} casos={false} />
+      </div>
     </div>
   );
 }

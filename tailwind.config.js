@@ -237,8 +237,14 @@ export default {
         "dark-purple": "#081A51",
         "light-white": "rgba(255, 255, 255, 0.17)",
       },
-      spacing: {
-        112: "28.8rem",
+      fontSize: {
+        "2xs": "0.65rem",
+        "3xs": "0.55rem",
+        "4xs": "0.45rem",
+        "5xs": "0.35rem",
+        "6xs": "0.25rem",
+        "7xs": "0.15rem",
+        "8xs": "0.05rem",
       },
     },
   },

@@ -59,8 +59,12 @@ interface Vocabutary_Data {
   variants: Variant[];
 }
 
-function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
+export default function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
   const num_variants = data.variants.length;
+
+  function remark_text(text: string, unnused: boolean) {
+    return unnused ? "*" + text : text;
+  }
 
   const num_cols: { [key: number]: string } = {
     1: "grid-cols-1",
@@ -111,11 +115,11 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
     return (
       <div className="grid grid-cols-2 gap-1 mb-2">
         <Celda
-          className="bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% text-white text-sm border-none rounded-3xl"
+          className="bg-gradient-to-b from-singular-primario-claro from-5% via-singular-primario-base to-singular-primario-oscuro to-95% text-white text-sm border-none rounded-3xl text-2xs"
           texto="Singular"
         />
         <Celda
-          className="bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% text-white text-sm border-none rounded-3xl"
+          className="bg-gradient-to-b from-plural-primario-claro from-5% via-plural-primario-base to-plural-primario-oscuro to-95% text-white text-sm border-none rounded-3xl text-2xs"
           texto="Plural"
         />
       </div>
@@ -141,32 +145,36 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
   const WordRow = ({ word }: { word: Words }) => {
     const classes: { [key: number]: string } = {
       0: "bg-white",
-      1: "bg-masculino-primario-claro",
-      2: "bg-femenino-primario-claro",
-      3: "bg-neutro-primario-claro",
+      1: "bg-masculino-secundario-base",
+      2: "bg-femenino-secundario-base",
+      3: "bg-neutro-secundario-base",
     };
 
-    let singular = word.declinations.nominative.singular.word;
-    const singular_unnused = word.declinations.nominative.singular.unnused;
-    let plural = word.declinations.nominative.plural.word;
-    const plural_unnused = word.declinations.nominative.plural.unnused;
+    const unnused: { [key: string]: boolean } = {
+      ns: word.declinations.nominative.singular.unnused,
+      np: word.declinations.nominative.plural.unnused,
+    };
 
-    if (singular_unnused) {
-      singular = "*" + singular;
-    }
-    if (plural_unnused) {
-      plural = "*" + singular;
-    }
+    const declinations: { [key: string]: string } = {
+      ns: remark_text(
+        word.declinations.nominative.singular.word,
+        unnused["ns"],
+      ),
+      np: remark_text(word.declinations.nominative.plural.word, unnused["np"]),
+    };
+
+    const words_style = "border-none text-sm rounded";
+
     return (
       <div className="grid grid-cols-2 gap-1 place-items-center">
         <Celda
-          className={`${classes[word.gender]} border-none text-sm rounded ${singular_unnused && "text-orange-700"}`}
-          texto={singular}
+          className={`${classes[word.gender]} ${words_style} ${unnused["ns"] && "text-orange-700"}`}
+          texto={declinations["ns"]}
           lang="ru"
         />
         <Celda
-          className={`border-none text-sm rounded ${plural_unnused && "text-orange-700"}`}
-          texto={plural}
+          className={`${words_style} ${unnused["np"] && "text-orange-700"}`}
+          texto={declinations["np"]}
           lang="ru"
         />
         <ActionButton declinable={word.declinable} />
@@ -198,7 +206,7 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
   };
   return (
     <div
-      className={`bg-white border-2 border-gray-400 rounded-3xl overflow-hidden ${num_variants > 1 && num_col_span[num_variants]} w-full h-full place-items-center p-2 place-content-center flex flex-col justify-evenly`}
+      className={`bg-white border-2 border-gray-400 rounded-3xl overflow-hidden ${num_variants > 1 && num_col_span[num_variants]} w-full h-full place-items-center p-2 place-content-center flex flex-col justify-evenly hover:scale-105 transition-transform duration-300 ease-in-out`}
     >
       <Image />
       <Title />
@@ -206,5 +214,3 @@ function Vocabulary_Card({ data }: { data: Vocabutary_Data }) {
     </div>
   );
 }
-
-export default Vocabulary_Card;
